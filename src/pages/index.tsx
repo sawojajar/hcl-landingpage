@@ -137,7 +137,7 @@ export default function Home() {
                       <Heading as="h3" size="md" mb={2}>
                         {category}
                       </Heading>
-                      <Text mb={2}>HCL Pump 3" 2.5L/h</Text>
+                      <Text mb={2}>HCL Pump 3&quot; 2.5L/h</Text>
                       <Flex align="center" mb={4}>
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Icon key={star} as={Star} color="yellow.400" fill="yellow.400" boxSize={4} />
