@@ -1,3 +1,4 @@
+import { textStyles } from "@/components/text";
 import { theme as defaultTheme, extendTheme } from "@chakra-ui/react";
 
 const customColor = {
@@ -17,6 +18,7 @@ const customColor = {
 
 const theme = extendTheme({
   colors: customColor,
+  textStyles
 });
 
 export { theme };
