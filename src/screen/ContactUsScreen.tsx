@@ -154,7 +154,7 @@ export function ContactUsScreen() {
                                         </AccordionButton>
                                         <AccordionPanel pb={4}>
                                             Tim ahli kami tersedia untuk memberikan konsultasi dan merekomendasikan solusi pompa terbaik sesuai
-                                            dengan kebutuhan spesifik Anda. Anda dapat menghubungi kami melalui bagian "Kontak Kami" atau
+                                            dengan kebutuhan spesifik Anda. Anda dapat menghubungi kami melalui bagian &quot;Kontak Kami&quot; atau
                                             jadwalkan demo produk.
                                         </AccordionPanel>
                                     </AccordionItem>
