@@ -1,7 +1,10 @@
+import { Layout } from '@/components/layout';
 import { HomeScreen } from '@/screen/HomeScreen'
 
 const Home = () => {
-  return <HomeScreen />
+  return <Layout>
+    <HomeScreen />
+  </Layout>
 }
 
 export default Home;

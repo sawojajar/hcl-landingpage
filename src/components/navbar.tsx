@@ -3,27 +3,30 @@ import React from 'react'
 import NextLink from "next/link"
 import { CaretDown } from '@phosphor-icons/react'
 
-export const Navbar = () => {
+export const Navbar = (props: {
+    background?: string;
+}) => {
+    const fontColor = props.background === 'unset' ? 'black' : 'white'
     return (
-        <Box as="nav" bg="green.700" py={3} position="fixed" width='100%' top={0} zIndex={50}>
+        <Box as="nav" bg={props.background || "green.700"} py={3} position="fixed" width='100%' top={0} zIndex={50}>
             <Container maxW="7xl">
                 <Flex justify="space-between" align="center">
-                    <Link as={NextLink} href="/" fontSize="2xl" fontWeight="bold" color="white">
+                    <Link as={NextLink} href="/" fontSize="2xl" fontWeight="bold">
                         <Image src='/assets/logo.png' alt='logo hcl' width='61px' height='48px' />
                     </Link>
 
                     <Stack direction="row" spacing={6} display={{ base: "none", md: "flex" }} align="center">
-                        <Link color="white" _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
                             Beranda
                         </Link>
-                        <Link color="white" _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
                             Tentang Kami
                         </Link>
-                        <Link color="white" _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
                             Produk
                         </Link>
                         <Menu>
-                            <MenuButton as={Button} rightIcon={<CaretDown />} background='transparent' color='white' _hover={{ color: "gray.200", background: 'transprent' }}>
+                            <MenuButton as={Button} rightIcon={<CaretDown />} background='transparent' color={fontColor} _hover={{ color: "gray.200", background: 'transprent' }}>
                                 Produk
                             </MenuButton>
                             <MenuList>
@@ -34,7 +37,7 @@ export const Navbar = () => {
                             </MenuList>
                         </Menu>
                     </Stack>
-                    <Button variant="outline" color="white" _hover={{ bg: "green.600" }} display={{ base: "none", md: "flex" }}>
+                    <Button variant="outline" color={fontColor} _hover={{ bg: "green.600" }} display={{ base: "none", md: "flex" }}>
                         Hubungi Kami
                     </Button>
                     <Menu>
@@ -42,7 +45,7 @@ export const Navbar = () => {
                             as={IconButton}
                             icon={<Icon as={List} />}
                             variant="ghost"
-                            color="white"
+                            color={fontColor}
                             display={{ base: "flex", md: "none" }}
                         />
                         <MenuList>
