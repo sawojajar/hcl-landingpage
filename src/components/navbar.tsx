@@ -16,13 +16,13 @@ export const Navbar = (props: {
                     </Link>
 
                     <Stack direction="row" spacing={6} display={{ base: "none", md: "flex" }} align="center">
-                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }} href='/'>
                             Beranda
                         </Link>
-                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }} href='/about-us'>
                             Tentang Kami
                         </Link>
-                        <Link color={fontColor} _hover={{ color: "gray.200" }}>
+                        <Link color={fontColor} _hover={{ color: "gray.200" }} href='/products'>
                             Produk
                         </Link>
                         <Menu>
@@ -37,9 +37,11 @@ export const Navbar = (props: {
                             </MenuList>
                         </Menu>
                     </Stack>
-                    <Button variant="outline" color={fontColor} _hover={{ bg: "green.600" }} display={{ base: "none", md: "flex" }}>
-                        Hubungi Kami
-                    </Button>
+                    <Link href='/contact-us'>
+                        <Button variant="outline" color={fontColor} _hover={{ bg: "green.600" }} display={{ base: "none", md: "flex" }}>
+                            Hubungi Kami
+                        </Button>
+                    </Link>
                     <Menu>
                         <MenuButton
                             as={IconButton}
