@@ -25,20 +25,10 @@ import {
     useColorModeValue,
     SkeletonText,
 } from "@chakra-ui/react"
-import { CaretDown, Package } from "@phosphor-icons/react"
+import { CaretDown } from "@phosphor-icons/react/dist/csr/CaretDown"
+import { Package } from "@phosphor-icons/react/dist/csr/Package"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-
-// Mock data for filters
-const filters = {
-    "Jenis Pompa": ["Submersible", "Surface", "Booster"],
-    "Sumber Daya": ["Listrik", "Solar", "Manual"],
-    Spesifikasi: ["2 KL/h", "3 KL/h", "4 KL/h"],
-    "Kondisi Medan": ["Normal", "Ekstrem", "Dalam Air"],
-    Harga: ["< Rp200.000", "Rp200.000 - Rp500.000", "> Rp500.000"],
-}
-
-const sortOptions = ["Paling Populer", "Harga Tertinggi", "Harga Terendah", "Rating Tertinggi"]
 
 const EmptyState = () => (
     <Box textAlign="center" py={10} px={6}>

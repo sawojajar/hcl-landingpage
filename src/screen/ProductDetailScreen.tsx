@@ -30,7 +30,7 @@ import {
 } from "@chakra-ui/react"
 import { useParams } from "next/navigation"
 import { useState } from "react"
-import { Package } from "@phosphor-icons/react"
+import { Package } from "@phosphor-icons/react/dist/csr/Package"
 import getConfig from "next/config"
 
 const { publicRuntimeConfig } = getConfig();

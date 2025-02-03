@@ -12,7 +12,10 @@ import {
     Text,
     useColorModeValue,
 } from "@chakra-ui/react"
-import { Shield, Globe, CurrencyDollar, Rocket } from "@phosphor-icons/react"
+import { Shield } from "@phosphor-icons/react/dist/csr/Shield"
+import { Globe } from "@phosphor-icons/react/dist/csr/Globe"
+import { CurrencyDollar } from "@phosphor-icons/react/dist/csr/CurrencyDollar"
+import { Rocket } from "@phosphor-icons/react/dist/csr/Rocket"
 
 export function AboutUsScreen() {
     const bgGreen = useColorModeValue("green.700", "green.800")
@@ -44,7 +47,7 @@ export function AboutUsScreen() {
                     </Stack>
                 </Container>
                 <Box display='flex' justifyContent='center' zIndex={2}>
-                    <Image src="/assets/hero-about-us.png" alt="hero image"/>
+                    <Image src="/assets/hero-about-us.png" alt="hero image" />
                 </Box>
                 {/* Stats Section */}
                 <Box bg="black" color="white" py={16} pt={32} transform='translateY(-120px)'>
