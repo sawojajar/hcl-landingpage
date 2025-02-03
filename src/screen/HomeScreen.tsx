@@ -82,7 +82,7 @@ export function HomeScreen() {
                                             {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
                                                 <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
                                                     <Flex direction="column" align="center">
-                                                        <Image src="/placeholder.svg" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
+                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
                                                         <Heading as="h3" size="md" mb={2}>
                                                             {category}
                                                         </Heading>
@@ -108,7 +108,7 @@ export function HomeScreen() {
                                             {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
                                                 <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
                                                     <Flex direction="column" align="center">
-                                                        <Image src="/placeholder.svg" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
+                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
                                                         <Heading as="h3" size="md" mb={2}>
                                                             {category}
                                                         </Heading>
@@ -134,7 +134,7 @@ export function HomeScreen() {
                                             {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
                                                 <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
                                                     <Flex direction="column" align="center">
-                                                        <Image src="/placeholder.svg" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
+                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
                                                         <Heading as="h3" size="md" mb={2}>
                                                             {category}
                                                         </Heading>

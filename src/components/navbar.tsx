@@ -1,7 +1,7 @@
-import { Box, Button, Container, Flex, Icon, IconButton, Image, Link, List, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react'
+import { Box, Button, Container, Flex, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react'
 import React from 'react'
 import NextLink from "next/link"
-import { CaretDown } from '@phosphor-icons/react'
+import { CaretDown, List } from '@phosphor-icons/react'
 
 export const Navbar = (props: {
     background?: string;
@@ -42,16 +42,16 @@ export const Navbar = (props: {
                     <Menu>
                         <MenuButton
                             as={IconButton}
-                            icon={<Icon as={List} />}
+                            icon={<List color={fontColor} size={24} />}
                             variant="ghost"
                             color={fontColor}
                             display={{ base: "flex", md: "none" }}
                         />
                         <MenuList>
-                            <MenuItem>Beranda</MenuItem>
-                            <MenuItem>Tentang Kami</MenuItem>
-                            <MenuItem>Produk</MenuItem>
-                            <MenuItem>Hubungi Kami</MenuItem>
+                            <Link  _hover={{ color: "gray.200" }} href='/'><MenuItem>Beranda</MenuItem></Link>
+                            <Link  _hover={{ color: "gray.200" }} href='/about-us'><MenuItem>Tentang Kami</MenuItem></Link>
+                            <Link  _hover={{ color: "gray.200" }} href='/products'><MenuItem>Produk</MenuItem></Link>
+                            <Link  _hover={{ color: "gray.200" }} href='/contact-us'><MenuItem>Hubungi Kami</MenuItem></Link>
                         </MenuList>
                     </Menu>
                 </Flex>

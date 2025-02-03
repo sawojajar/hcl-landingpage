@@ -42,7 +42,7 @@ const products = Array(12)
         price: 300000,
         rating: 4.8,
         reviews: 249,
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/assets/pump-asset.png?height=200&width=200",
     }))
 
 export function ProductsScreen() {
@@ -117,7 +117,7 @@ export function ProductsScreen() {
                             cursor='pointer'
                         >
                             <Image
-                                src={product.image || "/placeholder.svg"}
+                                src={product.image || "/assets/pump-asset.png"}
                                 alt={product.name}
                                 height="200px"
                                 width="100%"
