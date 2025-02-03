@@ -8,7 +8,7 @@ import type {
 const baseUrl =
     "https://script.google.com/macros/s/AKfycbyg3AjVIGsTbSPob91YFO5WiW4Fud5CyOhgxdv3FWTB3DpvZmtNX5586nFCVzTkyl-sAg/exec";
 
-const fetchProducts = async ({
+export const fetchProducts = async ({
   product,
 }: {
   product: ProductsRequest;
@@ -46,7 +46,7 @@ export const useProducts = (product: ProductsRequest) => {
   });
 };
 
-const fetchProductById = async (
+export const fetchProductById = async (
   productId: string
 ): Promise<ProductsResponse> => {
   const { data } = await axios.get(

@@ -1,7 +1,7 @@
 "use client"
 
 import { PurchaseForm } from "@/components/PurchaseFormModal"
-import { useProductById } from "@/modules/products/useProducts"
+import { fetchProductById, useProductById } from "@/modules/products/useProducts"
 import {
   Alert,
   AlertIcon,
@@ -32,6 +32,8 @@ import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Package } from "@phosphor-icons/react/dist/csr/Package"
 import getConfig from "next/config"
+import { Metadata } from "next"
+import { generateMetadataUtils } from "@/utils/metadata"
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -42,6 +44,18 @@ type FormValue = {
   purpose: string;
   phoneNumber: string;
 };
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const product = await fetchProductById(params.id);
+
+  return generateMetadataUtils({
+    title: `${product.data[0].name} | HCL Pump`,
+    description: product.data[0].description,
+    // todo: change this to the actual product detail page
+    url: `https://yourwebsite.com/product-detail/${params.id}`,
+    image: product.data[0].images[0].image_url,
+    type: "product",
+  });
+}
 
 export function ProductDetailScreen() {
   const [selectedImage, setSelectedImage] = useState(0)

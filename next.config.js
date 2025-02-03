@@ -7,6 +7,12 @@ const nextConfig = {
     adminWhatsAppChatFormat: process.env.ADMIN_WHATSAPP_CHAT_FORMAT,
     firstCategory: 'Agrikultur' || process.env.FIRST_CATEGORY,
   },
+  async rewrites() {
+    return [
+      { source: "/sitemap.xml", destination: "/api/sitemap.xml" },
+      { source: "/sitemap-:id.xml", destination: "/api/sitemap-[id].ts" },
+    ];
+  },
 }
 
 module.exports = nextConfig
