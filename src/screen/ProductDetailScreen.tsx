@@ -26,10 +26,22 @@ import {
   Tabs,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react"
 import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Package } from "@phosphor-icons/react"
+import getConfig from "next/config"
+
+const { publicRuntimeConfig } = getConfig();
+
+type FormValue = {
+  ownerName: string;
+  storeName: string;
+  address: string;
+  purpose: string;
+  phoneNumber: string;
+};
 
 export function ProductDetailScreen() {
   const [selectedImage, setSelectedImage] = useState(0)
@@ -37,9 +49,54 @@ export function ProductDetailScreen() {
   const params = useParams()
   const id = params?.productId as string
 
+  const toast = useToast();
+
   const { data, isLoading, isError } = useProductById(id)
 
   const product = data?.data[0]
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const onSubmit = async (data: FormValue) => {
+    setIsSubmitting(true)
+    try {
+      const adminWhatsApp = publicRuntimeConfig.adminWhatsAppNumber;
+      const chatFormat = publicRuntimeConfig.adminWhatsAppChatFormat;
+
+      if (!adminWhatsApp || !chatFormat) {
+        throw new Error("WhatsApp configuration is missing");
+      }
+
+      const message = chatFormat
+        .replace("{ownerName}", data.ownerName)
+        .replace("{storeName}", data.storeName)
+        .replace("{address}", data.address)
+        .replace("{purpose}", data.purpose)
+        .replace("{phoneNumber}", data.phoneNumber);
+
+      const whatsappUrl = `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(message)}`;
+
+      window.open(whatsappUrl, "_blank");
+      toast({
+        title: "Form submitted",
+        description:
+          "You will be redirected to WhatsApp to continue the conversation.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to redirect to WhatsApp. Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -209,7 +266,7 @@ F                  </Stack>
       </Container>
 
       {/* Purchase Form Modal */}
-      <PurchaseForm isOpen={isOpen} onClose={onClose} onSubmit={(e) => console.log(e)} isSubmitting={false} />
+      <PurchaseForm isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} isSubmitting={isSubmitting} />
     </Box>
   )
 }

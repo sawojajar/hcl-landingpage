@@ -30,8 +30,6 @@ const fetchProducts = async ({
 
   const { data } = await axios.get(url);
 
-  console.log("halo", data);
-
   return {
     data: data.data,
     page: data.page,
