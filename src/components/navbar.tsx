@@ -22,18 +22,15 @@ export const Navbar = (props: {
                         <Link color={fontColor} _hover={{ color: "gray.200" }} href='/about-us'>
                             Tentang Kami
                         </Link>
-                        <Link color={fontColor} _hover={{ color: "gray.200" }} href='/products'>
-                            Produk
-                        </Link>
                         <Menu>
-                            <MenuButton as={Button} rightIcon={<CaretDown />} background='transparent' color={fontColor} _hover={{ color: "gray.200", background: 'transprent' }}>
+                            <MenuButton as={Button} rightIcon={<CaretDown />} background='transparent' color={fontColor} padding={0} fontWeight='normal' _hover={{ color: "gray.200", background: 'transprent' }} _active={{ background: 'transprent' }}>
                                 Produk
                             </MenuButton>
                             <MenuList>
-                                <MenuItem>Beranda</MenuItem>
-                                <MenuItem>Tentang Kami</MenuItem>
-                                <MenuItem>Produk</MenuItem>
-                                <MenuItem>Hubungi Kami</MenuItem>
+                                <Link  _hover={{ color: "gray.200" }} href='/products'><MenuItem>Beranda</MenuItem></Link>
+                                <Link  _hover={{ color: "gray.200" }} href='/products'><MenuItem>Tentang Kami</MenuItem></Link>
+                                <Link  _hover={{ color: "gray.200" }} href='/products'><MenuItem>Produk</MenuItem></Link>
+                                <Link  _hover={{ color: "gray.200" }} href='/products'><MenuItem>Hubungi Kami</MenuItem></Link>
                             </MenuList>
                         </Menu>
                     </Stack>
