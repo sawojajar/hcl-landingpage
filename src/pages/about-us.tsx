@@ -11,3 +11,9 @@ const AboutUs = () => {
 }
 
 export default AboutUs
+
+export async function getServerSideProps() {
+    return {
+      props: {},
+    };
+  }

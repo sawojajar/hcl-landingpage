@@ -11,3 +11,8 @@ const ContactUs = () => {
 }
 
 export default ContactUs
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}

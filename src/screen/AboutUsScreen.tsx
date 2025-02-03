@@ -4,10 +4,8 @@ import {
     Box,
     Button,
     Container,
-    Flex,
     Grid,
     Heading,
-    HStack,
     Image,
     Link,
     Stack,
@@ -46,7 +44,7 @@ export function AboutUsScreen() {
                     </Stack>
                 </Container>
                 <Box display='flex' justifyContent='center' zIndex={2}>
-                    <Image src="/assets/hero-about-us.png" />
+                    <Image src="/assets/hero-about-us.png" alt="hero image"/>
                 </Box>
                 {/* Stats Section */}
                 <Box bg="black" color="white" py={16} pt={32} transform='translateY(-120px)'>

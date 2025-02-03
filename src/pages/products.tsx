@@ -11,3 +11,8 @@ const Products = () => {
 }
 
 export default Products
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}

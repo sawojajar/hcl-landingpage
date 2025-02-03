@@ -98,7 +98,7 @@ export function HomeScreen() {
                                         </Box>
                                     ))}
                                     {categories?.data.slice(0, 3).map((category, i) => (
-                                        <Tab onClick={() => setCategory(category.name)}>{category.name}</Tab>
+                                        <Tab key={i} onClick={() => setCategory(category.name)}>{category.name}</Tab>
                                     ))}
                                 </TabList>
 
@@ -119,8 +119,8 @@ export function HomeScreen() {
                                         <Alert status="error">
                                             <AlertIcon />
                                             Terjadi Kesalahan saat memuat produk. Silakan coba lagi nanti.
-                                        </Alert>) : categories?.data.slice(0, 3).map((category, i) => (
-                                            <TabPanel>
+                                        </Alert>) : categories?.data.slice(0, 3).map((_c, i) => (
+                                            <TabPanel key={i}>
                                                 <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} w="full">
                                                     {data?.data.slice(0, 3).map((product, i) => (
                                                         <Link key={i} href={`/product-detail/${product.id}`}>

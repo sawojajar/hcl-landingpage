@@ -11,3 +11,9 @@ const ProductDetail = () => {
 }
 
 export default ProductDetail
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}
