@@ -5,14 +5,15 @@ import type {
   ProductsRequest,
   ProductsResponse,
 } from "./ProductEntity";
+const baseUrl =
+    "https://script.google.com/macros/s/AKfycbyg3AjVIGsTbSPob91YFO5WiW4Fud5CyOhgxdv3FWTB3DpvZmtNX5586nFCVzTkyl-sAg/exec";
 
 const fetchProducts = async ({
   product,
 }: {
   product: ProductsRequest;
 }): Promise<ProductsResponse> => {
-  const baseUrl =
-    "https://script.google.com/macros/s/AKfycbyg3AjVIGsTbSPob91YFO5WiW4Fud5CyOhgxdv3FWTB3DpvZmtNX5586nFCVzTkyl-sAg/exec";
+  
 
   const params: Record<string, string> = {};
   if (product.path) params.path = product.path;
@@ -49,7 +50,7 @@ const fetchProductById = async (
   productId: string
 ): Promise<ProductsResponse> => {
   const { data } = await axios.get(
-    `https://script.google.com/macros/s/AKfycbzbEvbuEnKY1hKi_fmQ4K8avOScmKAYkTRze0tjvF78YgIVw7EyWIstdOhZ1ON25eEt/exec?path=product_list&action=read&page=1&pageSize=2&product_id=${productId}`
+    `${baseUrl}?path=product_list&action=read&page=1&pageSize=2&product_id=${productId}`
   );
 
   return {
@@ -69,7 +70,7 @@ export const useProductById = (productId: string) => {
 
 const fetchCategories = async (): Promise<CategoryResponse> => {
   const { data } = await axios.get(
-    "https://script.google.com/macros/s/AKfycbzbEvbuEnKY1hKi_fmQ4K8avOScmKAYkTRze0tjvF78YgIVw7EyWIstdOhZ1ON25eEt/exec?path=category&action=read"
+    `${baseUrl}?path=category&action=read`
   );
 
   return {
