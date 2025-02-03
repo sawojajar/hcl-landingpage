@@ -1,7 +1,9 @@
 import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box, Button, Collapse, Container, Divider, Flex, HStack, Image, Link, Menu, MenuButton, MenuItem, MenuList, SkeletonText, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React from 'react'
 import NextLink from "next/link"
-import { CaretDown, List, X } from '@phosphor-icons/react'
+import { CaretDown} from '@phosphor-icons/react/dist/csr/CaretDown'
+import { List } from '@phosphor-icons/react/dist/csr/List'
+import { X } from '@phosphor-icons/react/dist/csr/X'
 import { CategoryResponse } from '@/modules/products/ProductEntity'
 
 export const Navbar = (props: {

@@ -7,7 +7,6 @@ import {
     Grid,
     Heading,
     HStack,
-    Icon,
     Image,
     Stack,
     Text,
@@ -17,7 +16,6 @@ import {
     Alert,
     AlertIcon
 } from "@chakra-ui/react"
-import { Star } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { useCategories, useProducts } from '@/modules/products/useProducts';
 import { useState } from 'react';
