@@ -2,22 +2,25 @@ import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box, Button,
 import React from 'react'
 import NextLink from "next/link"
 import { CaretDown, List, X } from '@phosphor-icons/react'
+import { CategoryResponse } from '@/modules/products/ProductEntity'
 
 export const Navbar = (props: {
     background?: string;
+    categoryData?: CategoryResponse;
+    isLoading?: boolean;
 }) => {
     const fontColor = props.background === 'unset' ? 'black' : 'white'
     const { isOpen, onToggle } = useDisclosure();
     return (
-        <Box as="nav" 
-        bg={
-            props.background !== 'unset'
-              ? props.background
-              : fontColor === "white"
-                ? "green.700"
-                : "white"
-          }
-        py={3} position="fixed" width='100%' top={0} zIndex={50} boxShadow="md">
+        <Box as="nav"
+            bg={
+                props.background !== 'unset'
+                    ? props.background
+                    : fontColor === "white"
+                        ? "green.700"
+                        : "white"
+            }
+            py={3} position="fixed" width='100%' top={0} zIndex={50} boxShadow="md">
             <Container maxW="7xl">
                 <Flex justify="space-between" align="center">
                     <Link as={NextLink} href="/" fontSize="2xl" fontWeight="bold">
@@ -36,10 +39,18 @@ export const Navbar = (props: {
                                 Produk
                             </MenuButton>
                             <MenuList>
-                                <Link _hover={{ color: "gray.200" }} href='/products'><MenuItem>Beranda</MenuItem></Link>
-                                <Link _hover={{ color: "gray.200" }} href='/products'><MenuItem>Tentang Kami</MenuItem></Link>
-                                <Link _hover={{ color: "gray.200" }} href='/products'><MenuItem>Produk</MenuItem></Link>
-                                <Link _hover={{ color: "gray.200" }} href='/products'><MenuItem>Hubungi Kami</MenuItem></Link>
+                                {props.isLoading ? (
+                                    <SkeletonText mt="4" noOfLines={4} spacing="4" />
+                                ) : (
+                                    props.categoryData?.data.map((category) => (
+                                        <Link
+                                            key={category.name}
+                                            href={`/products?category=${category.name}`}
+                                        >
+                                            <MenuItem >{category.name}</MenuItem>
+                                        </Link>
+                                    ))
+                                )}
                             </MenuList>
                         </Menu>
                     </Stack>
@@ -105,38 +116,17 @@ export const Navbar = (props: {
                                 </AccordionButton>
                                 <AccordionPanel pb={4} px={0}>
                                     <VStack align="stretch" spacing={3}>
-                                        {/* {isLoading ? ( */}
-                                        {false ? (
+                                        {props.isLoading ? (
                                             <SkeletonText mt="4" noOfLines={4} spacing="4" />
                                         ) : (
-                                            // categoryData?.data.map((category) => (
-                                            //     <Link
-                                            //         key={category.name}
-                                            //         href={`/products?category=${category.name}`}
-                                            //     >
-                                            //         <Text>{category.name}</Text>
-                                            //     </Link>
-                                            // ))
-                                            <>
-                                            <Link
-                                                    key={`1`}
-                                                    href={`/products?category=${1}`}
+                                            props.categoryData?.data.map((category) => (
+                                                <Link
+                                                    key={category.name}
+                                                    href={`/products?category=${category.name}`}
                                                 >
-                                                    <Text color={fontColor}>{`category 1`}</Text>
+                                                    <Text color={fontColor}>{category.name}</Text>
                                                 </Link>
-                                            <Link
-                                                    key={`1`}
-                                                    href={`/products?category=${2}`}
-                                                >
-                                                    <Text color={fontColor}>{`category 2`}</Text>
-                                                </Link>
-                                            <Link
-                                                    key={`1`}
-                                                    href={`/products?category=${3}`}
-                                                >
-                                                    <Text color={fontColor}>{`category 3`}</Text>
-                                                </Link>
-                                                </>
+                                            ))
                                         )}
                                     </VStack>
                                 </AccordionPanel>

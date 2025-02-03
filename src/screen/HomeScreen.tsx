@@ -12,11 +12,28 @@ import {
     Stack,
     Text,
     VStack,
-    Tabs, TabList, TabPanels, Tab, TabPanel
+    Tabs, TabList, TabPanels, Tab, TabPanel,
+    Skeleton,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react"
 import { Star } from '@phosphor-icons/react'
+import Link from 'next/link'
+import { useCategories, useProducts } from '@/modules/products/useProducts';
+import { useState } from 'react';
+import getConfig from 'next/config';
 
 export function HomeScreen() {
+    const { publicRuntimeConfig } = getConfig();
+    const [category, setCategory] = useState(publicRuntimeConfig.firstCategory);
+    const { data, isLoading, isError } = useProducts({
+        action: "read",
+        page: 1,
+        pageSize: 10,
+        path: "product_list",
+        productCategory: category
+    },);
+    const { data: categories, isLoading: isLoadingcategory } = useCategories();
     return (
         <>
             <Head>
@@ -53,7 +70,9 @@ export function HomeScreen() {
                             Mengutamakan kekuatan dengan sesat pompa yang efisien, hemat biaya, dan handal untuk berbagai aplikasi dari
                             tinggi penggunaan air untuk tahun 2018
                         </Text>
-                        <Button colorScheme="green">Jelajahi Produk</Button>
+                        <Link href="/products">
+                            <Button colorScheme="green">Jelajahi Produk</Button>
+                        </Link>
                     </Flex>
                 </Box>
 
@@ -71,92 +90,72 @@ export function HomeScreen() {
                             </Box>
                             <Tabs isFitted width='100%' colorScheme='green'>
                                 <TabList>
-                                    <Tab>Agrikultur</Tab>
-                                    <Tab>Residential</Tab>
-                                    <Tab>Komersial</Tab>
+                                    {isLoadingcategory && [1, 2, 3].map((_, index) => (
+                                        <Box key={index} borderRadius="lg" p={6}>
+                                            <Flex direction="column" align="center">
+                                                <Skeleton width="400px" height="20px" mb={4} />
+                                            </Flex>
+                                        </Box>
+                                    ))}
+                                    {categories?.data.slice(0, 3).map((category, i) => (
+                                        <Tab onClick={() => setCategory(category.name)}>{category.name}</Tab>
+                                    ))}
                                 </TabList>
 
                                 <TabPanels>
-                                    <TabPanel>
+                                    {isLoading ? (
                                         <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} w="full">
-                                            {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
-                                                <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
+                                            {[1, 2, 3].map((_, index) => (
+                                                <Box key={index} borderWidth={1} borderRadius="lg" p={6}>
                                                     <Flex direction="column" align="center">
-                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
-                                                        <Heading as="h3" size="md" mb={2}>
-                                                            {category}
-                                                        </Heading>
-                                                        <Text mb={2}>HCL Pump 3&quot; 2.5L/h</Text>
-                                                        <Flex align="center" mb={4}>
+                                                        <Skeleton width="200px" height="300px" mb={4} />
+                                                        <Skeleton height="20px" width="150px" mb={2} />
+                                                        <Skeleton height="16px" width="120px" mb={2} />
+                                                    </Flex>
+                                                </Box>
+                                            ))}
+                                        </Grid>
+                                    ) : isError ? (
+                                        <Alert status="error">
+                                            <AlertIcon />
+                                            Terjadi Kesalahan saat memuat produk. Silakan coba lagi nanti.
+                                        </Alert>) : categories?.data.slice(0, 3).map((category, i) => (
+                                            <TabPanel>
+                                                <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} w="full">
+                                                    {data?.data.slice(0, 3).map((product, i) => (
+                                                        <Link key={i} href={`/product-detail/${product.id}`}>
+
+                                                            <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
+                                                                <Flex direction="column" align="center">
+                                                                    <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
+                                                                    <Heading as="h3" size="md" mb={2}>
+                                                                        {product.category}
+                                                                    </Heading>
+                                                                    <Text mb={2}>{product.name}</Text>
+                                                                    {/* <Flex align="center" mb={4}>
                                                             {[1, 2, 3, 4, 5].map((star) => (
                                                                 <Icon key={star} as={Star} color="yellow.400" fill="yellow.400" boxSize={4} />
                                                             ))}
                                                             <Text ml={2} fontSize="sm" color="gray.600">
                                                                 4.8 (120)
                                                             </Text>
-                                                        </Flex>
-                                                        <Button variant="outline" w="full">
-                                                            Lihat Semua Produk
-                                                        </Button>
-                                                    </Flex>
-                                                </Box>
-                                            ))}
-                                        </Grid>
-                                    </TabPanel>
-                                    <TabPanel>
-                                        <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} w="full">
-                                            {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
-                                                <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
-                                                    <Flex direction="column" align="center">
-                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
-                                                        <Heading as="h3" size="md" mb={2}>
-                                                            {category}
-                                                        </Heading>
-                                                        <Text mb={2}>HCL Pump 3&quot; 2.5L/h</Text>
-                                                        <Flex align="center" mb={4}>
-                                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                                <Icon key={star} as={Star} color="yellow.400" fill="yellow.400" boxSize={4} />
-                                                            ))}
-                                                            <Text ml={2} fontSize="sm" color="gray.600">
-                                                                4.8 (120)
-                                                            </Text>
-                                                        </Flex>
-                                                        <Button variant="outline" w="full">
-                                                            Lihat Semua Produk
-                                                        </Button>
-                                                    </Flex>
-                                                </Box>
-                                            ))}
-                                        </Grid>
-                                    </TabPanel>
-                                    <TabPanel>
-                                        <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6} w="full">
-                                            {["Agrikultur", "Residential", "Komersial"].map((category, i) => (
-                                                <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
-                                                    <Flex direction="column" align="center">
-                                                        <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
-                                                        <Heading as="h3" size="md" mb={2}>
-                                                            {category}
-                                                        </Heading>
-                                                        <Text mb={2}>HCL Pump 3&quot; 2.5L/h</Text>
-                                                        <Flex align="center" mb={4}>
-                                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                                <Icon key={star} as={Star} color="yellow.400" fill="yellow.400" boxSize={4} />
-                                                            ))}
-                                                            <Text ml={2} fontSize="sm" color="gray.600">
-                                                                4.8 (120)
-                                                            </Text>
-                                                        </Flex>
-                                                        <Button variant="outline" w="full">
-                                                            Lihat Semua Produk
-                                                        </Button>
-                                                    </Flex>
-                                                </Box>
-                                            ))}
-                                        </Grid>
-                                    </TabPanel>
+                                                        </Flex> */}
+                                                                </Flex>
+                                                            </Box>
+                                                        </Link>
+                                                    ))}
+
+                                                </Grid>
+                                            </TabPanel>
+                                        ))}
+
                                 </TabPanels>
                             </Tabs>
+                            <Link href="/products">
+                                <Button backgroundColor='green.700' color='white'>
+                                    Lihat Semua Produk
+                                </Button>
+                            </Link>
 
                         </Stack>
                     </Container>
@@ -223,9 +222,11 @@ export function HomeScreen() {
                                         seluruh Indonesia. Kami selalu memastik kualitas di setiap produk, pengiriman air efisien dan pelayanan
                                         air serta layanan aplikasi terbaik.
                                     </Text>
-                                    <Button colorScheme="green" alignSelf="flex-start">
-                                        Selengkapnya
-                                    </Button>
+                                    <Link href="/about-us">
+                                        <Button colorScheme="green" alignSelf="flex-start">
+                                            Selengkapnya
+                                        </Button>
+                                    </Link>
                                 </Stack>
                             </HStack>
                         </VStack>
@@ -239,9 +240,11 @@ export function HomeScreen() {
                         <Heading as="h2" size="xl" mb={4}>
                             Diskusikan Kebutuhan Anda dengan Ahli Kami
                         </Heading>
-                        <Button variant="outline" color="white" _hover={{ bg: "primary.800" }}>
-                            Hubungi Kami
-                        </Button>
+                        <Link href="/contact-us">
+                            <Button variant="outline" color="white" _hover={{ bg: "primary.800" }}>
+                                Hubungi Kami
+                            </Button>
+                        </Link>
                     </Container>
                 </Box>
             </Box>

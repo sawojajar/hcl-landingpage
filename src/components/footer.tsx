@@ -23,9 +23,9 @@ export const Footer = () => {
                                 Tentang Kami
                             </Heading>
                             <Stack spacing={2}>
-                                <Link fontSize="sm">Perusahaan</Link>
-                                <Link fontSize="sm">Produk</Link>
-                                <Link fontSize="sm">Hubungi Kami</Link>
+                                <Link fontSize="sm" href='/about-us'>Perusahaan</Link>
+                                <Link fontSize="sm" href='/products'>Produk</Link>
+                                <Link fontSize="sm" href='/contact-us'>Hubungi Kami</Link>
                             </Stack>
                         </Stack>
 

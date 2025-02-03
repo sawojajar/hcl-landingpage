@@ -1,5 +1,10 @@
-
+import type { Product } from "@/modules/products/ProductEntity"
+import { useCategories, useProducts } from "@/modules/products/useProducts"
 import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
     Box,
     Breadcrumb,
     BreadcrumbItem,
@@ -14,12 +19,14 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
+    Skeleton,
     Stack,
     Text,
     useColorModeValue,
+    SkeletonText,
 } from "@chakra-ui/react"
-import { CaretDown, Star } from "@phosphor-icons/react"
-import { useRouter } from "next/router"
+import { CaretDown, Package } from "@phosphor-icons/react"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 // Mock data for filters
@@ -33,22 +40,43 @@ const filters = {
 
 const sortOptions = ["Paling Populer", "Harga Tertinggi", "Harga Terendah", "Rating Tertinggi"]
 
-// Mock product data
-const products = Array(12)
-    .fill(null)
-    .map((_, i) => ({
-        id: i + 1,
-        name: `HCI Pump ${(i % 2) + 3}" ${2} KL/h`,
-        price: 300000,
-        rating: 4.8,
-        reviews: 249,
-        image: "/assets/pump-asset.png?height=200&width=200",
-    }))
+const EmptyState = () => (
+    <Box textAlign="center" py={10} px={6}>
+        <Package size={50} weight="thin" />
+        <Heading as="h2" size="xl" mt={6} mb={2}>
+            Tidak ada produk ditemukan
+        </Heading>
+        <Text color="gray.500">
+            Maaf, kami tidak dapat menemukan produk yang sesuai dengan kriteria Anda. Silakan coba filter yang berbeda.
+        </Text>
+    </Box>
+)
 
 export function ProductsScreen() {
     const [currentPage, setCurrentPage] = useState(1)
     const borderColor = useColorModeValue("gray.200", "gray.700")
     const router = useRouter()
+    const [category, setCategory] = useState<string | undefined>("")
+    const pageSize = 10
+    const { data, isLoading, isError, refetch } = useProducts({
+        action: "read",
+        page: currentPage,
+        pageSize: pageSize,
+        path: "product_list",
+        productCategory: category,
+    })
+
+    const products: Product[] = data?.data || []
+    const totalProducts = (data?.page || 0) * (data?.pageSize || 0)
+    const totalPages = Math.ceil(totalProducts / pageSize)
+
+    const handleApplyFilter = (value: string | undefined) => {
+        setCategory(value)
+        setCurrentPage(1)
+        refetch()
+    }
+
+    const { data: categories, isLoading: isLoadingCatagory } = useCategories();
 
     return (
         <Box minH="100vh" pt={16}>
@@ -65,109 +93,136 @@ export function ProductsScreen() {
 
                 {/* Filters */}
                 <Flex direction={{ base: "column", md: "row" }} gap={4} mb={6} flexWrap="wrap">
-                    {Object.entries(filters).map(([title, options]) => (
-                        <Menu key={title}>
-                            <MenuButton as={Button} rightIcon={<CaretDown />} variant="outline">
-                                {title}
-                            </MenuButton>
-                            <MenuList>
-                                {options.map((option) => (
-                                    <MenuItem key={option}>{option}</MenuItem>
-                                ))}
-                            </MenuList>
-                        </Menu>
-                    ))}
-
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<CaretDown />} variant="outline" ml={{ md: "auto" }}>
-                            Urutkan: Paling Populer
+                    <Menu key={'category'}>
+                        <MenuButton as={Button} rightIcon={<CaretDown />} variant="outline">
+                            Katagori
                         </MenuButton>
-                        <MenuList>
-                            {sortOptions.map((option) => (
-                                <MenuItem key={option}>{option}</MenuItem>
+                        {isLoadingCatagory ? (
+                            <SkeletonText mt="4" noOfLines={4} spacing="4" />
+                        ) : (<MenuList>
+                            {categories?.data.map((option) => (
+
+                                <MenuItem key={option.name} onClick={() => handleApplyFilter(option.name)}>
+                                    {option.name}
+                                </MenuItem>
                             ))}
+                            <MenuItem key='all' onClick={() => handleApplyFilter(undefined)}>
+                                Semua Kategori
+                            </MenuItem>
                         </MenuList>
+                        )}
                     </Menu>
                 </Flex>
 
-                {/* Results count */}
-                <Text color="gray.600" mb={6}>
-                    Menampilkan 1-16 dari 54 Produk
-                </Text>
+                {isError ? (
+                    <Alert status="error">
+                        <AlertIcon />
+                        <AlertTitle mr={2}>Error!</AlertTitle>
+                        <AlertDescription>Terjadi kesalahan saat memuat produk. Silakan coba lagi nanti.</AlertDescription>
+                    </Alert>
+                ) : (
+                    <>
+                        {/* Results count */}
+                        <Text color="gray.600" mb={6}>
+                            Menampilkan {(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, totalProducts)} dari{" "}
+                            {totalProducts} Produk
+                        </Text>
 
-                {/* Product Grid */}
-                <Grid
-                    templateColumns={{
-                        base: "1fr",
-                        sm: "repeat(2, 1fr)",
-                        lg: "repeat(4, 1fr)",
-                    }}
-                    gap={6}
-                    mb={8}
-                >
-                    {products.map((product) => (
-                        <Box
-                            key={product.id}
-                            borderWidth="1px"
-                            borderColor={borderColor}
-                            borderRadius="lg"
-                            overflow="hidden"
-                            _hover={{ shadow: "md" }}
-                            onClick={() => router.push(`/product-detail/${product.id}`)}
-                            cursor='pointer'
-                        >
-                            <Image
-                                src={product.image || "/assets/pump-asset.png"}
-                                alt={product.name}
-                                height="200px"
-                                width="100%"
-                                objectFit="contain"
-                                p={4}
-                            />
-                            <Stack p={4} spacing={2}>
-                                <Heading size="sm" fontWeight="semibold">
-                                    {product.name}
-                                </Heading>
-                                <Text fontWeight="bold">Rp{product.price.toLocaleString("id-ID")}</Text>
-                                <Flex align="center" gap={2}>
-                                    <Flex>
-                                        {Array(5)
-                                            .fill("")
-                                            .map((_, i) => (
-                                                <Star
-                                                    key={i}
-                                                    weight={i < Math.floor(product.rating) ? "fill" : "regular"}
-                                                    color={i < Math.floor(product.rating) ? "#FFB800" : "#CBD5E0"}
-                                                />
-                                            ))}
-                                    </Flex>
-                                    <Text color="gray.600">
-                                        {product.rating} ({product.reviews})
-                                    </Text>
-                                </Flex>
-                            </Stack>
-                        </Box>
-                    ))}
-                </Grid>
+                        {/* Product Grid */}
+                        {isLoading ? (
+                            <Grid
+                                templateColumns={{
+                                    base: "1fr",
+                                    sm: "repeat(2, 1fr)",
+                                    lg: "repeat(4, 1fr)",
+                                }}
+                                gap={6}
+                                mb={8}
+                            >
+                                {Array(pageSize)
+                                    .fill(0)
+                                    .map((_, index) => (
+                                        <Box key={index} borderWidth="1px" borderColor={borderColor} borderRadius="lg" overflow="hidden">
+                                            <Skeleton height="200px" />
+                                            <Stack p={4} spacing={2}>
+                                                <Skeleton height="20px" width="80%" />
+                                                <Skeleton height="20px" width="60%" />
+                                                <Skeleton height="20px" width="40%" />
+                                            </Stack>
+                                        </Box>
+                                    ))}
+                            </Grid>
+                        ) : products.length > 0 ? (
+                            <Grid
+                                templateColumns={{
+                                    base: "1fr",
+                                    sm: "repeat(2, 1fr)",
+                                    lg: "repeat(4, 1fr)",
+                                }}
+                                gap={6}
+                                mb={8}
+                            >
+                                {products.map((product) => (
+                                    <Box
+                                        key={product.id}
+                                        borderWidth="1px"
+                                        borderColor={borderColor}
+                                        borderRadius="lg"
+                                        overflow="hidden"
+                                        _hover={{ shadow: "md" }}
+                                        onClick={() => router.push(`/product-detail/${product.id}`)}
+                                        cursor="pointer"
+                                    >
+                                        <Image
+                                            src={product.images[0]?.image_url || "/assets/pump-asset.png"}
+                                            alt={product.name}
+                                            height="200px"
+                                            width="100%"
+                                            objectFit="contain"
+                                            p={4}
+                                        />
+                                        <Stack p={4} spacing={2}>
+                                            <Heading size="sm" fontWeight="semibold" textAlign='center'>
+                                                {product.name}
+                                            </Heading>
+                                        </Stack>
+                                    </Box>
+                                ))}
+                            </Grid>
+                        ) : (
+                            <EmptyState />
+                        )}
 
-                {/* Pagination */}
-                <Flex justify="center" gap={2}>
-                    <Button variant="outline" isDisabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
-                        Previous
-                    </Button>
-                    {[1, 2, 3, 4, 5].map((page) => (
-                        <Button
-                            key={page}
-                            variant={currentPage === page ? "solid" : "outline"}
-                            onClick={() => setCurrentPage(page)}
-                        >
-                            {page}
-                        </Button>
-                    ))}
-                    <Button variant="outline" isDisabled={currentPage === 5} onClick={() => setCurrentPage(currentPage + 1)}>
-                        Next
-                    </Button>
-                </Flex>
+                        {/* Pagination */}
+                        {products.length > 0 && (
+                            <Flex justify="center" gap={2}>
+                                <Button
+                                    variant="outline"
+                                    isDisabled={currentPage === 1}
+                                    onClick={() => setCurrentPage(currentPage - 1)}
+                                >
+                                    Previous
+                                </Button>
+                                {[...Array(totalPages)].map((_, index) => (
+                                    <Button
+                                        key={index}
+                                        variant={currentPage === index + 1 ? "solid" : "outline"}
+                                        onClick={() => setCurrentPage(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </Button>
+                                ))}
+                                <Button
+                                    variant="outline"
+                                    isDisabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage(currentPage + 1)}
+                                >
+                                    Next
+                                </Button>
+                            </Flex>
+                        )}
+                    </>
+                )}
             </Container>
         </Box>
     )

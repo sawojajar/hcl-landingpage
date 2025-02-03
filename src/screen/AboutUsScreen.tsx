@@ -25,7 +25,7 @@ export function AboutUsScreen() {
             {/* Hero Section */}
             <Box as="section" pt={28} width='100%' gap={16} display='flex' flexDir='column'>
                 <Container maxW="7xl" display='flex'>
-                    <Stack spacing={8} flexDir={{base: 'column', md: 'row'}}>
+                    <Stack spacing={8} flexDir={{ base: 'column', md: 'row' }}>
                         <Box flex={1} display='flex' flexDir='column'>
                             <Text color="gray.600">TENTANG KAMI</Text>
                             <Heading size="2xl" lineHeight="1.2">
@@ -37,9 +37,11 @@ export function AboutUsScreen() {
                                 Dengan pengalaman puluhan tahun di bidang industri pompa air yang prima, kami berkomitmen untuk memberikan
                                 kualitas terbaik untuk memudahkan hidup setiap yang berkepentingan.
                             </Text>
-                            <Button colorScheme="green" size="lg" width="fit-content">
-                                Hubungi Kami
-                            </Button>
+                            <Link href="/contact-us">
+                                <Button colorScheme="green" size="lg" width="fit-content">
+                                    Hubungi Kami
+                                </Button>
+                            </Link>
                         </Box>
                     </Stack>
                 </Container>
@@ -178,14 +180,16 @@ export function AboutUsScreen() {
             </Box>
 
             {/* CTA Section */}
-            <Box py={20} bg="black" color="white">
+            <Box py={20} bg="black" color="white" bgGradient='linear(to-t, #04351B, #032312)'>
                 <Container maxW="7xl" textAlign="center">
-                    <Stack spacing={8} align="center">
-                        <Heading size="xl">Diskusikan Kebutuhan Anda dengan Ahli Kami</Heading>
-                        <Button colorScheme="green" size="lg">
+                    <Heading as="h2" size="xl" mb={4}>
+                        Diskusikan Kebutuhan Anda dengan Ahli Kami
+                    </Heading>
+                    <Link href="/contact-us">
+                        <Button variant="outline" color="white" _hover={{ bg: "primary.800" }}>
                             Hubungi Kami
                         </Button>
-                    </Stack>
+                    </Link>
                 </Container>
             </Box>
         </Box>
