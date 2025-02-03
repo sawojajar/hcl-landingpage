@@ -122,19 +122,19 @@ export const Navbar = (props: {
                                                     key={`1`}
                                                     href={`/products?category=${1}`}
                                                 >
-                                                    <Text color={fontColor}>{`category.name`}</Text>
+                                                    <Text color={fontColor}>{`category 1`}</Text>
                                                 </Link>
                                             <Link
                                                     key={`1`}
-                                                    href={`/products?category=${1}`}
+                                                    href={`/products?category=${2}`}
                                                 >
-                                                    <Text color={fontColor}>{`category.name`}</Text>
+                                                    <Text color={fontColor}>{`category 2`}</Text>
                                                 </Link>
                                             <Link
                                                     key={`1`}
-                                                    href={`/products?category=${1}`}
+                                                    href={`/products?category=${3}`}
                                                 >
-                                                    <Text color={fontColor}>{`category.name`}</Text>
+                                                    <Text color={fontColor}>{`category 3`}</Text>
                                                 </Link>
                                                 </>
                                         )}
