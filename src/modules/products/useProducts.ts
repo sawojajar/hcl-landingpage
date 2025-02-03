@@ -34,6 +34,7 @@ const fetchProducts = async ({
     data: data.data,
     page: data.page,
     pageSize: data.pageSize,
+    totalPage: data.totalPage,
   };
 };
 

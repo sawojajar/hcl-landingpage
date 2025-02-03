@@ -19,6 +19,7 @@ type ProductsResponse = {
   data: Product[];
   page: number;
   pageSize: number;
+  totalPage?: number;
 };
 
 type ProductsRequest = {

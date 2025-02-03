@@ -58,7 +58,7 @@ export function ProductsScreen() {
 
     const products: Product[] = data?.data || []
     const totalProducts = (data?.page || 0) * (data?.pageSize || 0)
-    const totalPages = Math.ceil(totalProducts / pageSize)
+    const totalPages = data?.totalPage || 1
 
     const handleApplyFilter = (value: string | undefined) => {
         setCategory(value)
