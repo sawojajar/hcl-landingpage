@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     title: `${product.data[0].name} | HCL Pump`,
     description: product.data[0].description,
     // todo: change this to the actual product detail page
-    url: `https://yourwebsite.com/product-detail/${params.id}`,
+    url: `${publicRuntimeConfig.baseUrl}/product-detail/${params.id}`,
     image: product.data[0].images[0].image_url,
     type: "product",
   });
