@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
       description="Mengalir Tanpa Henti, Menghubungkan Indonesia dengan solusi pompa yang andal, tahan lama, dan inovatif untuk berbagai aplikasi, dari irigasi hingga pengolahan air limbah sejak 2019."
       dangerouslySetAllPagesToNoIndex={!enableIndexingSEO}
       dangerouslySetAllPagesToNoFollow={!enableIndexingSEO}
+      canonical={publicRuntimeConfig.baseUrl}
     />
     <Component {...pageProps} />
   </RootProvider>

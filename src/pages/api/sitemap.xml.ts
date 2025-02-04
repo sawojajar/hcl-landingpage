@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { fetchProducts } from "@/modules/products/useProducts";
+import getConfig from "next/config";
 
 const CHUNK_SIZE = 500; // Number of products per sitemap file
 
+const {publicRuntimeConfig} = getConfig()
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const protocol = req.headers["x-forwarded-proto"] || "http";
-  const host = req.headers["x-forwarded-host"] || req.headers["host"];
-  const baseUrl = `${protocol}://${host}`;
+  const baseUrl = `${publicRuntimeConfig.baseUrl}`;
   const totalPage = await fetchProducts({
     product: {
       action: "read",
