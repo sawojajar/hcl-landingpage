@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
-import axios from "axios";
 import type {
   CategoryResponse,
   ProductsRequest,
   ProductsResponse,
 } from "./ProductEntity";
+// import { axios } from "@/utils/fetcher";
 const baseUrl =
-    "https://script.google.com/macros/s/AKfycbyg3AjVIGsTbSPob91YFO5WiW4Fud5CyOhgxdv3FWTB3DpvZmtNX5586nFCVzTkyl-sAg/exec";
+    "/api/sheets";
 
 export const fetchProducts = async ({
   product,
@@ -29,7 +29,11 @@ export const fetchProducts = async ({
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}?${queryString}`;
 
-  const { data } = await axios.get(url);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch data")
+  }
+  const data = await response.json()
 
   return {
     data: data.data,
@@ -49,9 +53,14 @@ export const useProducts = (product: ProductsRequest) => {
 export const fetchProductById = async (
   productId: string
 ): Promise<ProductsResponse> => {
-  const { data } = await axios.get(
-    `${baseUrl}?path=product_list&action=read&page=1&pageSize=2&product_id=${productId}`
-  );
+
+  const url = `${baseUrl}?path=product_list&action=read&page=1&pageSize=2&product_id=${productId}`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch data")
+  }
+  const data = await response.json()
 
   return {
     data: data.data,
@@ -69,9 +78,13 @@ export const useProductById = (productId: string) => {
 };
 
 const fetchCategories = async (): Promise<CategoryResponse> => {
-  const { data } = await axios.get(
-    `${baseUrl}?path=category&action=read`
-  );
+  const url = `${baseUrl}?path=category&action=read`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to fetch data")
+  }
+  const data = await response.json()
 
   return {
     data: data.data,
