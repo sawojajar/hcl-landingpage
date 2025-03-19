@@ -62,11 +62,13 @@ export function HomeScreen() {
                         px={4}
                     >
                         <Heading as="h1" size={{ base: "xl", md: "2xl" }} maxW="3xl" mb={4} lineHeight="tight">
-                            HCL Pump: Pompa Air Berkinerja Tinggi untuk Rumah & Industri
+                            HCL PUMP INDONESIA
                         </Heading>
+                        <Text maxW="2xl" mb={4} fontSize={{ base: "sm", md: "lg" }} fontWeight={"bold"}>
+                            MENGALIR TANPA HENTI & KUMPARAN 100% TEMBAGA
+                        </Text>
                         <Text maxW="2xl" mb={8} fontSize={{ base: "sm", md: "md" }}>
-                            Mengutamakan kekuatan dengan sesat pompa yang efisien, hemat biaya, dan handal untuk berbagai aplikasi dari
-                            tinggi penggunaan air untuk tahun 2018
+                            Penyedia pompa air submersible bersertifikat SNI yang berkomitmen terhadap keunggulan, keterjangkauan, serta aksesibilitas Sejak 2019.
                         </Text>
                         <Link href="/products">
                             <Button colorScheme="green">Jelajahi Produk</Button>
@@ -170,19 +172,23 @@ export function HomeScreen() {
                                 <Text>Temukan alasan mengapa produk kami menjadi pilihan terpercaya bagi kebutuhan Anda</Text>
                             </Box>
 
-                            <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
+                            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6}>
                                 {[
                                     {
-                                        title: "Tahan Lama",
-                                        description: "Dirancang untuk bertahan di lingkungan berat dengan performa maksimal",
+                                        title: "HARGA KOMPETITIF",
+                                        description: "Produk kami memiliki kualitas terjamin dibanding produk lain dengan harga yang kompetitif.",
                                     },
                                     {
-                                        title: "Efisien",
-                                        description: "Teknologi hemat energi yang memberikan hasil maksimal tanpa pemborosan listrik",
+                                        title: "KUALITAS TERBAIK",
+                                        description: "Sesuai dengan slogan kami, Mengalir Tanpa Henti. Kami menjamin Produk HCL Pump merupakan pilihan yang tepat untuk memenuhi kebutuhan air anda.",
                                     },
                                     {
-                                        title: "Terjamin",
-                                        description: "Didukung oleh garansi 5 tahun yang memberikan rasa tenang pada setiap pelanggan",
+                                        title: "STANDART",
+                                        description: "Kami memastikan setiap unit yang kami produksi memenuhi persyaratan kualitas dan keselamatan yang ketat, untuk memberikan rasa aman dan tenang bagi Anda.",
+                                    },
+                                    {
+                                        title: "VARIATIF",
+                                        description: "Kami menyediakan berbagai macam ukuran pompa air dengan beragam kapasitas dan spesifikasi untuk mempermudah Anda menemukan pompa air yang efisien dan tepat.",
                                     },
                                 ].map((feature, i) => (
                                     <Box key={i} bg="green.600" p={6} borderRadius="lg">
@@ -212,13 +218,10 @@ export function HomeScreen() {
                                 </Stack>
                                 <Stack spacing={4}>
                                     <Text color="gray.600">
-                                        HCL Pump Indonesia adalah pelopor teknologi dalam industri pompa berkualitas tinggi, yang berfokus pada
-                                        pompa air, minyak, sumur, dan berbagai karya untuk berbagai aplikasi industri dan rumah tangga.
+                                        HCL Pump Indonesia adalah penyedia pompa air submersible bersertifikat SNI. Hanya dalam waktu lima tahun sejak berdiri (tahun 2019), kami telah menjadi pemimpin pasar dalam industri pompa air di Indonesia. Kami memiliki komitmen terhadap keunggulan, keterjangkauan, aksesibilitas dan variative produk.
                                     </Text>
                                     <Text color="gray.600">
-                                        Sejak berdiri pada tahun 2018, produk kami berhasil digunakan di berbagai perusahaan dan rumah tangga di
-                                        seluruh Indonesia. Kami selalu memastik kualitas di setiap produk, pengiriman air efisien dan pelayanan
-                                        air serta layanan aplikasi terbaik.
+                                        Pompa kami telah digunakan di berbagai sektor, termasuk irigasi pertanian dan perkebunan, pengairan domestik, pasokan air industri, pengangkatan air stasiun pompa, rekayasa kota, pasokan air konstruksi, pengolahan air limbah dan pemurnian air, serta banyak sektor lainnya.
                                     </Text>
                                     <Link href="/about-us">
                                         <Button colorScheme="green" alignSelf="flex-start">
@@ -236,7 +239,7 @@ export function HomeScreen() {
                 <Box bg="primary.900" py={16} color="white" bgGradient='linear(to-t, #04351B, #032312)'>
                     <Container maxW="7xl" textAlign="center">
                         <Heading as="h2" size="xl" mb={4}>
-                            Diskusikan Kebutuhan Anda dengan Ahli Kami
+                            Diskusikan Kebutuhan Anda dengan Kami
                         </Heading>
                         <Link href="/contact-us">
                             <Button variant="outline" color="white" _hover={{ bg: "primary.800" }}>

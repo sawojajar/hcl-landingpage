@@ -8,13 +8,15 @@ import {
     Heading,
     Image,
     Link,
+    ListItem,
     Stack,
     Text,
+    UnorderedList,
     useColorModeValue,
 } from "@chakra-ui/react"
 import { Shield } from "@phosphor-icons/react/dist/csr/Shield"
 import { Globe } from "@phosphor-icons/react/dist/csr/Globe"
-import { CurrencyDollar } from "@phosphor-icons/react/dist/csr/CurrencyDollar"
+import { Heart } from "@phosphor-icons/react/dist/csr/Heart"
 import { Rocket } from "@phosphor-icons/react/dist/csr/Rocket"
 
 export function AboutUsScreen() {
@@ -30,13 +32,12 @@ export function AboutUsScreen() {
                         <Box flex={1} display='flex' flexDir='column'>
                             <Text color="gray.600">TENTANG KAMI</Text>
                             <Heading size="2xl" lineHeight="1.2">
-                                Mitra Andal untuk Kebutuhan Air Anda
+                                Solusi Kebutuhan Air Mengalir Tanpa Henti
                             </Heading>
                         </Box>
                         <Box flex={1} display='flex' flexDir='column'>
                             <Text color="gray.600" fontSize="lg">
-                                Dengan pengalaman puluhan tahun di bidang industri pompa air yang prima, kami berkomitmen untuk memberikan
-                                kualitas terbaik untuk memudahkan hidup setiap yang berkepentingan.
+                                Sejak berdiri 2019, kami telah menjadi pemimpin pasar dalam industri pompa air di Indonesia dan menjadi Brand Pompa Submersible Terlengkap.
                             </Text>
                             <Link href="/contact-us">
                                 <Button colorScheme="green" size="lg" width="fit-content">
@@ -62,8 +63,8 @@ export function AboutUsScreen() {
                                 <Text>Memimpin pasar pompa air submersible</Text>
                             </Stack>
                             <Stack align="center">
-                                <Heading size="2xl">28+</Heading>
-                                <Text>Jumlah distributor resmi</Text>
+                                <Heading size="2xl">250+</Heading>
+                                <Text>Jumlah mitra resmi</Text>
                             </Stack>
                         </Grid>
                     </Container>
@@ -77,7 +78,7 @@ export function AboutUsScreen() {
                 <Container maxW="7xl">
                     <Text fontSize="lg" textAlign="center" maxW="3xl" mx="auto">
                         <Text as="span" color={bgGreen} fontWeight="bold">
-                            PT. Jaya Teknik Sejahtera
+                            HCL PUMP INDONESIA
                         </Text>{" "}
                         adalah penyedia terkemuka pompa air submersible listrik di Indonesia. Dalam waktu singkat, kami telah
                         menjadi pemimpin pasar di industri pompa air dalam negeri. Dedikasi kami terhadap kualitas, keterjangkauan,
@@ -104,8 +105,7 @@ export function AboutUsScreen() {
                                     Visi Kami
                                 </Heading>
                                 <Text color="gray.600">
-                                    Menjadi penyedia pompa air untuk setiap kebutuhan di Indonesia. Kami ingin menciptakan masa depan di
-                                    mana semua orang, di mana pun mereka berada, dapat dengan mudah mengakses air bersih.
+                                    Menjadi penyedia pompa air listrik paling tepercaya di Indonesia. Kami berkomitmen menciptakan masa depan yang berkelanjutan di mana setiap individu dapat memiliki akses terhadap air bersih dan andal untuk kebutuhan sehari-hari tanpa terkendala Lokasi
                                 </Text>
                             </Box>
                             <Box>
@@ -113,11 +113,13 @@ export function AboutUsScreen() {
                                     Misi Kami
                                 </Heading>
                                 <Stack spacing={4}>
-                                    <Text>• Menyediakan pompa air berkualitas tinggi dengan harga yang terjangkau</Text>
-                                    <Text>
-                                        • Memperluas jangkauan layanan kami ke seluruh wilayah Indonesia, termasuk daerah terpencil
-                                    </Text>
-                                    <Text>• Memenuhi beragam kebutuhan konsumen dengan produk yang inovatif</Text>
+                                    <UnorderedList>
+                                        <ListItem>Menyediakan pompa air listrik berkualitas terbaik dengan harga yang kompetitif.</ListItem>
+                                        <ListItem>
+                                            Memperluas jangkauan dan layanan kami ke daerah-daerah terpencil, memastikan kebutuhan air terpenuhi bagi seluruh masyarakat Indonesia.
+                                        </ListItem>
+                                        <ListItem>Menyediakan beagam produk pompa air untuk memenuhi kebutuhan di sektor pertanian, rumah tangga, dan komersial.</ListItem>
+                                    </UnorderedList>
                                 </Stack>
                             </Box>
                         </Stack>
@@ -142,37 +144,33 @@ export function AboutUsScreen() {
                         <Grid templateColumns={["1fr", "repeat(2, 1fr)"]} gap={8} width="100%">
                             <Stack p={8} borderRadius="lg" borderWidth="1px">
                                 <Shield size={32} weight="fill" color="#006837" />
-                                <Heading size="md">Kepercayaan</Heading>
+                                <Heading size="md">Kompetitif</Heading>
                                 <Text color="gray.600">
-                                    Kami berkomitmen menjaga kualitas terbaik dalam setiap aspek, mulai dari desain produk hingga layanan
-                                    pelanggan.
+                                HCL mengusahakan membuat Produk tidak kalah bagus dari produk lain dengan harga yang lebih terjangkau dan lebih modern untuk memudahkan Masyarakat menangani masalah sumber air. Spare part yang terpisah adalah salah satu contoh untuk mengurangi biaya dalam Kerusakan Pompa.
                                 </Text>
                             </Stack>
 
                             <Stack p={8} borderRadius="lg" borderWidth="1px">
                                 <Globe size={32} weight="fill" color="#006837" />
-                                <Heading size="md">Aksesibilitas</Heading>
+                                <Heading size="md">Kualitas Terbaik</Heading>
                                 <Text color="gray.600">
-                                    Kami berupaya menjangkau seluruh wilayah Indonesia, termasuk area terpencil, agar produk dan layanan
-                                    kami dapat dinikmati semua orang.
+                                Mengalir tanpa henti - adalah slogan kami, kami menjamin kualitas akan mesin HCL sangatiah berkualitas untuk memenuhi sumber air yang anda butuhkan. Dengan mesin yang berlilitkan tembaga 100% yang lebih modern dari produk lain, kami tidak takut untuk mengucapkan slogan yang telah kami buat tersebut.
                                 </Text>
                             </Stack>
 
                             <Stack p={8} borderRadius="lg" borderWidth="1px">
-                                <CurrencyDollar size={32} weight="fill" color="#006837" />
-                                <Heading size="md">Terjangkau</Heading>
+                                <Heart size={32} weight="fill" color="#006837" />
+                                <Heading size="md">Standart Produk</Heading>
                                 <Text color="gray.600">
-                                    Kami percaya bahwa kualitas di atas standar tidak harus mahal. Kami menyediakan produk dengan harga
-                                    yang terjangkau.
+                                Produk kami telah teruji dan disertifikasi oleh Standar Nasional Indonesia (SNI). Kami memastikan setiap unit yang kami produksi memenuhi persyaratan kualitas dan keselamatan yang ketat.
                                 </Text>
                             </Stack>
 
                             <Stack p={8} borderRadius="lg" borderWidth="1px">
                                 <Rocket size={32} weight="fill" color="#006837" />
-                                <Heading size="md">Inovasi</Heading>
+                                <Heading size="md">Variatif</Heading>
                                 <Text color="gray.600">
-                                    Kami terus berinovasi untuk menghadirkan produk dan layanan terbaik yang memenuhi kebutuhan pelanggan
-                                    di berbagai industri.
+                                Kami menyediakan berbagai macam ukuran pompa air dengan beragam kapasitas dan spesifikasi, sehingga konsumen dapat memilih pompa yang paling sesuai dengan kebutuhan masing-masing. Dengan variasi ukuran dan kemampuan ini, pelanggan dapat dengan mudah menemukan pompa air yang paling efisien dan tepat.
                                 </Text>
                             </Stack>
                         </Grid>
