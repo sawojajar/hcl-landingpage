@@ -9,11 +9,10 @@ export const Footer = () => {
                 <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
                     <Stack spacing={4}>
                         <Link as={NextLink} href="/" fontSize="2xl" fontWeight="bold">
-                            <Image src='/assets/logo.png' alt='logo hcl' width='61px' height='48px' />
+                            <Image src='/assets/logo_full.png' alt='logo hcl' width='200px' />
                         </Link>
                         <Text fontSize="sm">
-                            Solusi pompa yang efisien, hemat biaya, dan inovatif untuk berbagai aplikasi, dari tinggi penggunaan air
-                            untuk tahun 2018.
+                            Solusi pompa air submersible TERLENGKAP DAN BERKUALITAS di Indonesia sejak 2019.
                         </Text>
                     </Stack>
 
@@ -34,9 +33,13 @@ export const Footer = () => {
                                 Kontak
                             </Heading>
                             <Stack spacing={2} fontSize="sm">
-                                <Text>+62 888 8237 1100</Text>
-                                <Text>info@hclpump.com</Text>
-                                <Text>Jalan, Surabaya, Ponorogo, Indonesia 63456</Text>
+                                <Text>Telfon: +62811-262-427 & +62852-3246-8521</Text>
+                                <Text>Whatsapp: +6856-5558-8302</Text>
+                                <Text>Email: info@hclpump.com</Text>
+                                <Text>Instagram: HCLPUMP.ID</Text>
+                                <Text>Tiktok: HCL.PUMP.OFFICIAL</Text>
+                                <Text>Facebook: HCL PUMP</Text>
+                                <Text>Surabaya, Jawa Timur, Indonesia</Text>
                             </Stack>
                         </Stack>
                     </HStack>

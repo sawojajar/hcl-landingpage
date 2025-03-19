@@ -4,7 +4,6 @@ import type {
   ProductsRequest,
   ProductsResponse,
 } from "./ProductEntity";
-// import { axios } from "@/utils/fetcher";
 const baseUrl =
     "/api/sheets";
 

@@ -18,6 +18,8 @@ import {
     Textarea,
     useToast,
     FormErrorMessage,
+    UnorderedList,
+    ListItem,
 } from "@chakra-ui/react"
 import getConfig from "next/config";
 import { useState } from "react"
@@ -32,6 +34,34 @@ type FormData = {
 };
 
 const { publicRuntimeConfig } = getConfig();
+
+const FAQ_DATA = [
+    {
+        question: "Jenis pompa apa yang ditawarkan oleh HCL PUMP INDONESIA?",
+        answer: "Kami menawarkan berbagai produk diantaranya pompa submersible, pompa celup (wsd) air kotor, pompa celup air bersih dan banyak lagi. Pompa kami dirancang tahan lama dan efisien yang cocok untuk penggunaan jangka panjang guna memenuhi kebutuhan industri dan rumah tangga Anda."
+    },
+    {
+        question: "Bagaimana cara memilih pompa yang tepat?",
+        answer: "Kami dengan senang hati akan membantu untuk mengkonsultasikan produk yang sesuai dengan kebutuhan Anda. Anda dapat menghubungi kami melalui bagian “ kontak kami” dan tim HCL PUMP akan merekomendasikan jenis pompa apa yang sesuai dengan kebutuhan Anda."
+    },
+    {
+        question: "Dimana saya dapat membeli produk HCL?",
+        answer: "Produk kami bisa anda dapatkan melalui website resmi HCL PUMP dengan cara menghubungi kontak kami yang tertera, dan tim akan menghubungi anda untuk bantuan lebih lanjut.  Kami juga mempunyai Mitra resmi yang sudah tersebar di seluruh Indonesia."
+    },
+    {
+        question: "Mengapa saya harus memilih produk HCL PUMP?",
+        answer: <UnorderedList>
+            <ListItem>HCL Pump menawarkan produk dengan standar kualitas tinggi, menggunakan material dan teknologi terkini untuk memastikan daya tahan dan keandalan.</ListItem>
+            <ListItem>HCL PUMP Menyediakan berbagai macam variasi dengan pilihan spesifikasi terlengkap.</ListItem>
+            <ListItem>Produk HCL dirancang untuk hemat energi, membantu mengurangi biaya operasional dan dampak lingkungan.</ListItem>
+            <ListItem>Kami percaya bahwa akses untuk sumber air tidak boleh terhalang oleh kendala biaya. Oleh karena itu kami menawarkan produk kami dengan harga yang terjangkau bagi semua konsumen.</ListItem>
+        </UnorderedList>
+    },
+    {
+        question: "Bagaimana saya dapat bekerjasama dengan HCL PUMP?",
+        answer: "Jika anda ingin bermitra dengan kami, anda dapat menghubungi  langsung kontak yang tertera pada website  atau melalui media sosial HCL PUMP Indonesia. Tim kami akan menghubungi Anda dan menjelaskan terkait prosedur Kerjasama."
+    }
+]
 
 export function ContactUsScreen() {
     const toast = useToast()
@@ -108,7 +138,7 @@ export function ContactUsScreen() {
                         <Box>
                             <Stack spacing={4}>
                                 <form onSubmit={handleSubmit(onSubmit)}>
-                                    <Stack spacing={4}  bg="white" p={8} borderRadius="xl" shadow="sm">
+                                    <Stack spacing={4} bg="white" p={8} borderRadius="xl" shadow="sm">
                                         <FormControl isInvalid={!!errors.ownerName} isRequired>
                                             <FormLabel fontSize="md">Nama Pemilik </FormLabel>
                                             <Input
@@ -205,73 +235,19 @@ export function ContactUsScreen() {
                                 </Box>
 
                                 <Accordion allowToggle>
-                                    <AccordionItem>
+                                    {FAQ_DATA.map((faq, index) => (
+                                        <AccordionItem key={`faq-${index}`}>
                                         <AccordionButton py={4}>
                                             <Box flex="1" textAlign="left" fontWeight="medium">
-                                                Jenis pompa apa yang ditawarkan oleh HCL Pump?
+                                                {faq.question}
                                             </Box>
                                             <AccordionIcon />
                                         </AccordionButton>
                                         <AccordionPanel pb={4}>
-                                            Kami menawarkan berbagai jenis pompa, termasuk pompa sentrifugal, pompa perpindahan positif, pompa
-                                            submersible, dan banyak lagi. Produk kami dirancang untuk berbagai industri seperti minyak & gas,
-                                            kimia, dan pengolahan air.
-                                        </AccordionPanel>
-                                    </AccordionItem>
-
-                                    <AccordionItem>
-                                        <AccordionButton py={4}>
-                                            <Box flex="1" textAlign="left" fontWeight="medium">
-                                                Di mana saya dapat membeli produk HCL Pump?
-                                            </Box>
-                                            <AccordionIcon />
-                                        </AccordionButton>
-                                        <AccordionPanel pb={4}>
-                                            Anda dapat membeli produk kami langsung melalui website kami, atau menghubungi tim penjualan kami
-                                            untuk bantuan lebih lanjut. Kami juga memiliki distributor resmi di seluruh Indonesia.
-                                        </AccordionPanel>
-                                    </AccordionItem>
-
-                                    <AccordionItem>
-                                        <AccordionButton py={4}>
-                                            <Box flex="1" textAlign="left" fontWeight="medium">
-                                                Bagaimana cara memilih pompa yang tepat untuk kebutuhan saya?
-                                            </Box>
-                                            <AccordionIcon />
-                                        </AccordionButton>
-                                        <AccordionPanel pb={4}>
-                                            Tim ahli kami tersedia untuk memberikan konsultasi dan merekomendasikan solusi pompa terbaik sesuai
-                                            dengan kebutuhan spesifik Anda. Anda dapat menghubungi kami melalui bagian &quot;Kontak Kami&quot; atau
-                                            jadwalkan demo produk.
-                                        </AccordionPanel>
-                                    </AccordionItem>
-
-                                    <AccordionItem>
-                                        <AccordionButton py={4}>
-                                            <Box flex="1" textAlign="left" fontWeight="medium">
-                                                Berapa lama masa garansi untuk pompa HCL?
-                                            </Box>
-                                            <AccordionIcon />
-                                        </AccordionButton>
-                                        <AccordionPanel pb={4}>
-                                            Semua produk pompa HCL dilengkapi dengan garansi 1 tahun sejak tanggal pembelian, yang mencakup
-                                            cacat produksi. Untuk informasi lebih lanjut, silakan merujuk ke kebijakan garansi di website kami.
-                                        </AccordionPanel>
-                                    </AccordionItem>
-
-                                    <AccordionItem>
-                                        <AccordionButton py={4}>
-                                            <Box flex="1" textAlign="left" fontWeight="medium">
-                                                Apakah saya bisa mendapatkan dukungan teknis untuk instalasi dan pemeliharaan?
-                                            </Box>
-                                            <AccordionIcon />
-                                        </AccordionButton>
-                                        <AccordionPanel pb={4}>
-                                            Ya, kami menawarkan dukungan teknis untuk instalasi dan pemeliharaan berkelanjutan. Tim dukungan
-                                            kami tersedia melalui telepon atau email, atau Anda dapat menjadwalkan kunjungan teknisi kami ke
-                                            lokasi.
-                                        </AccordionPanel>
-                                    </AccordionItem>
+                                            {faq.answer}
+                                    </AccordionPanel>
+                                </AccordionItem>
+                                    ))}
                                 </Accordion>
                             </Stack>
                         </Box>
