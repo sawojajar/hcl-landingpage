@@ -37,50 +37,54 @@ export const Footer = () => {
 
                         <Stack spacing={4}>
                             <Heading as="h3" size="sm">
-                                Kontak
+                                Kontak Kami
                             </Heading>
-                            <Stack spacing={2} fontSize="sm">
-                                <Link href='tel:+62811262427' target='_blank'>
+                            <HStack spacing={2} alignItems='flex-start'>
+                                <Stack spacing={2} fontSize="sm">
+                                    <Link href='tel:+62811262427' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <Phone size={24} weight="fill" color="white" />
+                                            <Text>+62811-262-427</Text>
+                                        </Box>
+                                    </Link>
+                                    <Link href='https://wa.me/6285655588302' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <WhatsappLogo size={24} weight="fill" color="white" />
+                                            <Text>+62856-6856-8302</Text>
+                                        </Box>
+                                    </Link>
+                                    <Link href='mailto:info@hclpump.com' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <Envelope size={24} weight="fill" color="white" />
+                                            <Text>info@hclpump.com</Text>
+                                        </Box>
+                                    </Link>
+                                    <Link href='https://www.instagram.com/hclpump.id' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <InstagramLogo size={24} weight="fill" color="white" />
+                                            <Text>HCLPUMP.ID</Text>
+                                        </Box>
+                                    </Link>
+                                </Stack>
+                                <Stack spacing={2} fontSize="sm">
+                                    <Link href='https://www.tiktok.com/@hcl.pump.official' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <TiktokLogo size={24} weight="fill" color="white" />
+                                            <Text>HCL.PUMP.OFFICIAL</Text>
+                                        </Box>
+                                    </Link>
+                                    <Link href='https://www.facebook.com/hcl.pump' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <FacebookLogo size={24} weight="fill" color="white" />
+                                            <Text>HCL PUMP</Text>
+                                        </Box>
+                                    </Link>
                                     <Box display='flex' alignItems='center' gap={2}>
-                                        <Phone size={24} weight="fill" color="white" />
-                                        <Text>+62811-262-427 & +62852-3246-8521</Text>
+                                        <MapPinArea size={24} weight="fill" color="white" />
+                                        <Text>Surabaya, Jawa Timur, Indonesia</Text>
                                     </Box>
-                                </Link>
-                                <Link href='https://wa.me/6285655588302' target='_blank'>
-                                    <Box display='flex' alignItems='center' gap={2}>
-                                        <WhatsappLogo size={24} weight="fill" color="white" />
-                                        <Text>+62856-6856-8302</Text>
-                                    </Box>
-                                </Link>
-                                <Link href='mailto:info@hclpump.com' target='_blank'>
-                                    <Box display='flex' alignItems='center' gap={2}>
-                                        <Envelope size={24} weight="fill" color="white" />
-                                        <Text>info@hclpump.com</Text>
-                                    </Box>
-                                </Link>
-                                <Link href='https://www.instagram.com/hclpump.id' target='_blank'>
-                                    <Box display='flex' alignItems='center' gap={2}>
-                                        <InstagramLogo size={24} weight="fill" color="white" />
-                                        <Text>HCLPUMP.ID</Text>
-                                    </Box>
-                                </Link>
-                                <Link href='https://www.tiktok.com/@hcl.pump.official' target='_blank'>
-                                    <Box display='flex' alignItems='center' gap={2}>
-                                        <TiktokLogo size={24} weight="fill" color="white" />
-                                        <Text>HCL.PUMP.OFFICIAL</Text>
-                                    </Box>
-                                </Link>
-                                <Link href='https://www.facebook.com/hcl.pump' target='_blank'>
-                                    <Box display='flex' alignItems='center' gap={2}>
-                                        <FacebookLogo size={24} weight="fill" color="white" />
-                                        <Text>HCL PUMP</Text>
-                                    </Box>
-                                </Link>
-                                <Box display='flex' alignItems='center' gap={2}>
-                                    <MapPinArea size={24} weight="fill" color="white" />
-                                    <Text>Surabaya, Jawa Timur, Indonesia</Text>
-                                </Box>
-                            </Stack>
+                                </Stack>
+                            </HStack>
                         </Stack>
                     </HStack>
                 </Grid>

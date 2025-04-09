@@ -37,7 +37,7 @@ export function AboutUsScreen() {
                         </Box>
                         <Box flex={1} display='flex' flexDir='column'>
                             <Text color="gray.600" fontSize="lg">
-                                Sejak berdiri 2019, kami telah menjadi pemimpin pasar dalam industri pompa air di Indonesia dan menjadi Brand Pompa Submersible Terlengkap.
+                                Berdiri sejak 2019, kami telah menjadi pemimpin pasar dalam industri pompa air di Indonesia dan menjadi Brand Pompa Submersible Terlengkap.
                             </Text>
                             <Link href="/contact-us">
                                 <Button colorScheme="green" size="lg" width="fit-content">
@@ -182,7 +182,7 @@ export function AboutUsScreen() {
             <Box py={20} bg="black" color="white" bgGradient='linear(to-t, #04351B, #032312)'>
                 <Container maxW="7xl" textAlign="center">
                     <Heading as="h2" size="xl" mb={4}>
-                        Diskusikan Kebutuhan Anda dengan Ahli Kami
+                        Diskusikan Kebutuhan Anda dengan Kami
                     </Heading>
                     <Link href="/contact-us">
                         <Button variant="outline" color="white" _hover={{ bg: "primary.800" }}>
