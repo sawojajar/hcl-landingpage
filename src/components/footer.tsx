@@ -50,7 +50,7 @@ export const Footer = () => {
                                     <Link href='https://wa.me/6285655588302' target='_blank'>
                                         <Box display='flex' alignItems='center' gap={2}>
                                             <WhatsappLogo size={24} weight="fill" color="white" />
-                                            <Text>+62856-6856-8302</Text>
+                                            <Text>+62856-5558-8302</Text>
                                         </Box>
                                     </Link>
                                     <Link href='mailto:info@hclpump.com' target='_blank'>
@@ -67,6 +67,12 @@ export const Footer = () => {
                                     </Link>
                                 </Stack>
                                 <Stack spacing={2} fontSize="sm">
+                                    <Link href='tel:+6285232468521' target='_blank'>
+                                        <Box display='flex' alignItems='center' gap={2}>
+                                            <Phone size={24} weight="fill" color="white" />
+                                            <Text>+62852-3246-8521</Text>
+                                        </Box>
+                                    </Link>
                                     <Link href='https://www.tiktok.com/@hcl.pump.official' target='_blank'>
                                         <Box display='flex' alignItems='center' gap={2}>
                                             <TiktokLogo size={24} weight="fill" color="white" />
