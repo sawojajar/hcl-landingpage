@@ -64,11 +64,14 @@ export function HomeScreen() {
                         <Heading as="h1" size={{ base: "xl", md: "2xl" }} maxW="3xl" mb={4} lineHeight="tight">
                             HCL PUMP INDONESIA
                         </Heading>
+                        <Text maxW="2xl" fontSize={{ base: "md", md: "xl" }} fontWeight={"bold"}>
+                            KUMPARAN 100% TEMBAGA
+                        </Text>
                         <Text maxW="2xl" mb={4} fontSize={{ base: "sm", md: "lg" }} fontWeight={"bold"}>
-                            MENGALIR TANPA HENTI & KUMPARAN 100% TEMBAGA
+                            MENGALIR TANPA HENTI
                         </Text>
                         <Text maxW="2xl" mb={8} fontSize={{ base: "sm", md: "md" }}>
-                            Penyedia pompa air submersible bersertifikat SNI yang berkomitmen terhadap keunggulan, keterjangkauan, serta aksesibilitas Sejak 2019.
+                            Penyedia pompa air submersible yang berkomitmen terhadap keunggulan, keterjangkauan, serta aksesibilitas.
                         </Text>
                         <Link href="/products">
                             <Button colorScheme="green">Jelajahi Produk</Button>
