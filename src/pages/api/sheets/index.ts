@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server"
 
 const SHEET_URL =
   "https://script.google.com/macros/s/AKfycbyg3AjVIGsTbSPob91YFO5WiW4Fud5CyOhgxdv3FWTB3DpvZmtNX5586nFCVzTkyl-sAg/exec"
-const CACHE_TTL = 60 // Cache for 1 minute
+const CACHE_TTL = 60 * 60 * 24 * 30 // Cache for 1 day
 
 export const runtime = "edge"
 

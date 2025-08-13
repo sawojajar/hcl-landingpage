@@ -27,10 +27,14 @@ import {
   Text,
   useDisclosure,
   useToast,
+  List,
+  ListItem,
+  ListIcon,
 } from "@chakra-ui/react"
 import { useParams } from "next/navigation"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Package } from "@phosphor-icons/react/dist/csr/Package"
+import { Check } from "@phosphor-icons/react/dist/csr/Check"
 import getConfig from "next/config"
 import { Metadata } from "next"
 import { generateMetadataUtils } from "@/utils/metadata"
@@ -55,6 +59,22 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     image: product.data[0].images[0].image_url,
     type: "product",
   });
+}
+
+// Utility function to render formatted description
+const renderFormattedDescription = (description: string) => {
+  if (!description) return null
+
+  // Replace \n with <br /> and \t with spaces for proper formatting
+  const formattedText = description
+    .split('\n')
+    .map((line, index) => (
+      <Text key={index} color="gray.600" mb={2} whiteSpace="pre-wrap">
+        {line.replace(/\t/g, '    ')}
+      </Text>
+    ))
+
+  return formattedText
 }
 
 export function ProductDetailScreen() {
@@ -253,7 +273,9 @@ export function ProductDetailScreen() {
                 <TabPanel>
                   <Stack spacing={4}>
                     <Heading size="md">Tentang Produk</Heading>
-                    <Text color="gray.600">{product.description}</Text>
+                    <Box>
+                      {renderFormattedDescription(product.description)}
+                    </Box>
                   </Stack>
                 </TabPanel>
                 <TabPanel>
@@ -265,9 +287,11 @@ export function ProductDetailScreen() {
                         <Text color="gray.600">{spec.split(":")[1].trim()}</Text>
                       </Box>
                     ))} */}
-                        {/* <Text fontWeight="bold">{spec.split(":")[0].trim()}</Text> */}
-                        <Text color="gray.600">{product.specification}</Text>
-F                  </Stack>
+                    {/* <Text fontWeight="bold">{spec.split(":")[0].trim()}</Text> */}
+                    <Box>
+                      {renderFormattedDescription(product.specification)}
+                    </Box>
+                  </Stack>
                 </TabPanel>
               </TabPanels>
             </Tabs>

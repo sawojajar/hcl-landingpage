@@ -24,6 +24,16 @@ type CacheItem<T> = {
     delete(key: string): void {
       this.cache.delete(key);
     }
+
+    clearAll(): number {
+      const size = this.cache.size;
+      this.cache.clear();
+      return size;
+    }
+
+    getSize(): number {
+      return this.cache.size;
+    }
   }
   
   export const memoryCache = new MemoryCache();
