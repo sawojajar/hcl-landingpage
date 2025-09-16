@@ -79,7 +79,7 @@ jobs:
           sudo systemctl stop hcl-landingpage || echo "ℹ️ Service not running or doesn't exist yet"
           echo "✅ Service stopped"
 
-    - name: Upload and extract deployment
+    - name: Upload deployment package
       if: github.ref == 'refs/heads/main'
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -89,6 +89,7 @@ jobs:
         port: ${{ secrets.VPS_PORT || 22 }}
         source: "deployment.tar.gz"
         target: "/var/www/hcl-landingpage/"
+        strip_components: 0
 
     - name: Finalize deployment
       if: github.ref == 'refs/heads/main'
@@ -99,15 +100,25 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
+          set -e  # Exit on any error
+          
+          echo "🚀 Starting finalization process..."
           cd /var/www/hcl-landingpage
+          
+          echo "📁 Current directory: $(pwd)"
+          echo "📋 Directory contents before extraction:"
+          ls -la
           
           echo "📦 Extracting deployment package..."
           if [ -f "deployment.tar.gz" ]; then
+            echo "✅ Found deployment.tar.gz, extracting..."
             tar -xzf deployment.tar.gz
             rm deployment.tar.gz
-            echo "✅ Deployment package extracted"
+            echo "✅ Deployment package extracted and cleaned up"
           else
             echo "❌ deployment.tar.gz not found!"
+            echo "📋 Available files:"
+            ls -la
             exit 1
           fi
           
@@ -115,8 +126,16 @@ jobs:
           ls -la
           
           echo "📦 Installing production dependencies..."
-          yarn install --production --frozen-lockfile
-          echo "✅ Dependencies installed"
+          if command -v yarn >/dev/null 2>&1; then
+            yarn install --production --frozen-lockfile
+            echo "✅ Dependencies installed with yarn"
+          elif command -v npm >/dev/null 2>&1; then
+            npm ci --only=production
+            echo "✅ Dependencies installed with npm"
+          else
+            echo "❌ Neither yarn nor npm found!"
+            exit 1
+          fi
           
           echo "🔧 Setting proper permissions..."
           sudo chown -R www-data:www-data /var/www/hcl-landingpage
@@ -135,12 +154,19 @@ jobs:
           EOF
           echo "✅ Environment file created"
           
-          echo "🔄 Restarting application service..."
-          sudo systemctl restart hcl-landingpage
-          sleep 5
-          
-          echo "📊 Checking service status..."
-          sudo systemctl status hcl-landingpage --no-pager
+          echo "🔄 Starting application service..."
+          if sudo systemctl is-enabled hcl-landingpage >/dev/null 2>&1; then
+            echo "✅ Service is enabled, restarting..."
+            sudo systemctl restart hcl-landingpage
+            sleep 5
+            echo "📊 Checking service status..."
+            sudo systemctl status hcl-landingpage --no-pager
+          else
+            echo "⚠️ Service not enabled, starting manually..."
+            cd /var/www/hcl-landingpage
+            nohup yarn start > app.log 2>&1 &
+            echo "✅ Application started manually"
+          fi
           
           echo "🎉 Deployment completed successfully!"
 
