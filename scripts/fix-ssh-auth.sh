@@ -1,0 +1,110 @@
+#!/bin/bash
+
+# SSH Authentication Fix Script
+# This script helps fix SSH authentication issues
+
+echo "🔧 SSH Authentication Fix for VPS Deployment"
+echo "============================================="
+echo ""
+
+echo "🚨 Error: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain"
+echo ""
+echo "This means the SSH public key is not properly configured on your VPS."
+echo ""
+
+# Check if SSH key exists
+if [ ! -f ~/.ssh/id_rsa ]; then
+    echo "❌ SSH private key not found at ~/.ssh/id_rsa"
+    echo "💡 Run: ./scripts/generate-ssh-key.sh"
+    exit 1
+fi
+
+echo "✅ SSH private key found"
+echo ""
+
+# Display the public key
+echo "📋 Your PUBLIC key (copy this to your VPS):"
+echo "==========================================="
+cat ~/.ssh/id_rsa.pub
+echo ""
+
+echo "🔧 Fix Steps:"
+echo "============="
+echo ""
+echo "1. SSH into your VPS using password authentication:"
+echo "   ssh username@your-vps-ip"
+echo ""
+echo "2. Create SSH directory and add your public key:"
+echo "   mkdir -p ~/.ssh"
+echo "   nano ~/.ssh/authorized_keys"
+echo ""
+echo "3. Paste this public key into the authorized_keys file:"
+echo "   $(cat ~/.ssh/id_rsa.pub)"
+echo ""
+echo "4. Set proper permissions:"
+echo "   chmod 700 ~/.ssh"
+echo "   chmod 600 ~/.ssh/authorized_keys"
+echo ""
+echo "5. Test the connection:"
+echo "   ssh -i ~/.ssh/id_rsa username@your-vps-ip"
+echo ""
+
+echo "🚀 Quick Fix Commands (run these on your VPS):"
+echo "=============================================="
+echo ""
+echo "# SSH into your VPS first:"
+echo "ssh username@your-vps-ip"
+echo ""
+echo "# Then run these commands on the VPS:"
+echo "mkdir -p ~/.ssh"
+echo "echo '$(cat ~/.ssh/id_rsa.pub)' >> ~/.ssh/authorized_keys"
+echo "chmod 700 ~/.ssh"
+echo "chmod 600 ~/.ssh/authorized_keys"
+echo ""
+
+echo "🔍 Alternative: Use ssh-copy-id (if you have password access):"
+echo "=============================================================="
+echo ""
+echo "ssh-copy-id -i ~/.ssh/id_rsa.pub username@your-vps-ip"
+echo ""
+
+echo "📋 Verify the fix:"
+echo "=================="
+echo ""
+echo "1. Test SSH connection:"
+echo "   ssh -i ~/.ssh/id_rsa username@your-vps-ip"
+echo ""
+echo "2. If successful, you should be logged in without entering a password"
+echo ""
+echo "3. Check authorized_keys file on VPS:"
+echo "   ssh username@your-vps-ip 'cat ~/.ssh/authorized_keys'"
+echo ""
+
+echo "⚠️  Common Issues:"
+echo "=================="
+echo ""
+echo "❌ Wrong username:"
+echo "   → Try 'root', 'ubuntu', 'admin', or 'user'"
+echo ""
+echo "❌ Wrong IP address:"
+echo "   → Check your VPS IP in Hostinger control panel"
+echo ""
+echo "❌ SSH service not running:"
+echo "   → On VPS: sudo systemctl start ssh"
+echo ""
+echo "❌ Firewall blocking SSH:"
+echo "   → On VPS: sudo ufw allow ssh"
+echo ""
+
+echo "🔧 Test Commands:"
+echo "================="
+echo ""
+echo "# Test SSH connection with verbose output:"
+echo "ssh -v -i ~/.ssh/id_rsa username@your-vps-ip"
+echo ""
+echo "# Check SSH service status on VPS:"
+echo "ssh username@your-vps-ip 'sudo systemctl status ssh'"
+echo ""
+echo "# Check if authorized_keys exists:"
+echo "ssh username@your-vps-ip 'ls -la ~/.ssh/'"
+echo ""
