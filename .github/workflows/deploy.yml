@@ -45,6 +45,21 @@ jobs:
           next.config.js \
           tsconfig.json
 
+    - name: Test SSH Connection
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          echo "✅ SSH connection successful!"
+          echo "Host: $(hostname)"
+          echo "User: $(whoami)"
+          echo "Date: $(date)"
+          echo "Working directory: $(pwd)"
+
     - name: Deploy to VPS
       if: github.ref == 'refs/heads/main'
       uses: appleboy/ssh-action@v1.0.3
@@ -54,18 +69,30 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
+          echo "🚀 Starting deployment process..."
+          
           # Create deployment directory if it doesn't exist
           mkdir -p /var/www/hcl-landingpage
           cd /var/www/hcl-landingpage
           
+          echo "📁 Current directory: $(pwd)"
+          echo "📋 Directory contents:"
+          ls -la
+          
           # Backup current deployment
           if [ -d ".next" ]; then
+            echo "💾 Backing up current deployment..."
             sudo rm -rf .next.backup
             sudo mv .next .next.backup
+            echo "✅ Backup completed"
+          else
+            echo "ℹ️ No existing deployment to backup"
           fi
           
           # Stop the application if running
-          sudo systemctl stop hcl-landingpage || true
+          echo "⏹️ Stopping application service..."
+          sudo systemctl stop hcl-landingpage || echo "ℹ️ Service not running or doesn't exist yet"
+          echo "✅ Service stopped"
 
     - name: Upload and extract deployment
       if: github.ref == 'refs/heads/main'
@@ -89,18 +116,29 @@ jobs:
         script: |
           cd /var/www/hcl-landingpage
           
-          # Extract deployment
-          tar -xzf deployment.tar.gz
-          rm deployment.tar.gz
+          echo "📦 Extracting deployment package..."
+          if [ -f "deployment.tar.gz" ]; then
+            tar -xzf deployment.tar.gz
+            rm deployment.tar.gz
+            echo "✅ Deployment package extracted"
+          else
+            echo "❌ deployment.tar.gz not found!"
+            exit 1
+          fi
           
-          # Install production dependencies
+          echo "📋 Extracted files:"
+          ls -la
+          
+          echo "📦 Installing production dependencies..."
           yarn install --production --frozen-lockfile
+          echo "✅ Dependencies installed"
           
-          # Set proper permissions
+          echo "🔧 Setting proper permissions..."
           sudo chown -R www-data:www-data /var/www/hcl-landingpage
           sudo chmod -R 755 /var/www/hcl-landingpage
+          echo "✅ Permissions set"
           
-          # Create environment file
+          echo "⚙️ Creating environment file..."
           sudo tee /var/www/hcl-landingpage/.env.local > /dev/null <<EOF
           ENABLE_INDEXING_SEO=${{ secrets.ENABLE_INDEXING_SEO }}
           ADMIN_WHATSAPP_NUMBER=${{ secrets.ADMIN_WHATSAPP_NUMBER }}
@@ -110,10 +148,16 @@ jobs:
           NODE_ENV=production
           PORT=3000
           EOF
+          echo "✅ Environment file created"
           
-          # Restart the application
+          echo "🔄 Restarting application service..."
           sudo systemctl restart hcl-landingpage
-          sudo systemctl status hcl-landingpage
+          sleep 5
+          
+          echo "📊 Checking service status..."
+          sudo systemctl status hcl-landingpage --no-pager
+          
+          echo "🎉 Deployment completed successfully!"
 
     - name: Cleanup
       if: always()
