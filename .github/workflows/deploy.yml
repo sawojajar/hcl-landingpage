@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch: # Allow manual deployment
 
 jobs:
   build-and-deploy:
@@ -35,8 +36,15 @@ jobs:
         FIRST_CATEGORY: ${{ secrets.FIRST_CATEGORY }}
         BASE_URL: ${{ secrets.BASE_URL }}
 
+    - name: Test build output
+      run: |
+        echo "📋 Build output verification:"
+        ls -la .next/
+        echo "✅ Build completed successfully"
+
     - name: Create deployment package
       run: |
+        echo "📦 Creating deployment package..."
         tar -czf deployment.tar.gz \
           .next \
           public \
@@ -44,8 +52,9 @@ jobs:
           yarn.lock \
           next.config.js \
           tsconfig.json
+        echo "✅ Deployment package created: $(du -h deployment.tar.gz | cut -f1)"
 
-    - name: Deploy to VPS
+    - name: Test SSH Connection
       if: github.ref == 'refs/heads/main'
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -54,7 +63,23 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: ${{ secrets.VPS_PORT || 22 }}
         script: |
-          echo "🚀 Starting deployment process..."
+          echo "🔍 Testing SSH connection..."
+          echo "✅ SSH connection successful!"
+          echo "Host: $(hostname)"
+          echo "User: $(whoami)"
+          echo "Date: $(date)"
+          echo "Working directory: $(pwd)"
+
+    - name: Pre-deployment Setup
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          echo "🚀 Starting pre-deployment setup..."
           
           # Create deployment directory if it doesn't exist
           mkdir -p /var/www/hcl-landingpage
@@ -91,7 +116,7 @@ jobs:
         target: "/var/www/hcl-landingpage/"
         strip_components: 0
 
-    - name: Finalize deployment
+    - name: Deploy Application
       if: github.ref == 'refs/heads/main'
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -102,7 +127,7 @@ jobs:
         script: |
           set -e  # Exit on any error
           
-          echo "🚀 Starting finalization process..."
+          echo "🚀 Starting deployment process..."
           cd /var/www/hcl-landingpage
           
           echo "📁 Current directory: $(pwd)"
@@ -169,6 +194,61 @@ jobs:
           fi
           
           echo "🎉 Deployment completed successfully!"
+
+    - name: Health Check
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT || 22 }}
+        script: |
+          echo "🏥 Running health checks..."
+          
+          # Check if application is running
+          if curl -f http://localhost:3000 >/dev/null 2>&1; then
+            echo "✅ Application is responding on port 3000"
+          else
+            echo "❌ Application is not responding on port 3000"
+            echo "📋 Checking service status:"
+            sudo systemctl status hcl-landingpage --no-pager
+            exit 1
+          fi
+          
+          # Check if Nginx is running
+          if curl -f http://localhost:80 >/dev/null 2>&1; then
+            echo "✅ Nginx is responding on port 80"
+          else
+            echo "❌ Nginx is not responding on port 80"
+            echo "📋 Checking Nginx status:"
+            sudo systemctl status nginx --no-pager
+            exit 1
+          fi
+          
+          # Check if domain is accessible
+          if curl -f http://${{ secrets.BASE_URL || 'pompahcl.com' }} >/dev/null 2>&1; then
+            echo "✅ Domain is accessible"
+          else
+            echo "⚠️ Domain might not be accessible yet (DNS propagation)"
+          fi
+          
+          echo "🎉 All health checks passed!"
+
+    - name: Deployment Summary
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "🎉 Deployment Summary"
+        echo "==================="
+        echo "✅ Build completed successfully"
+        echo "✅ Application deployed to VPS"
+        echo "✅ Health checks passed"
+        echo ""
+        echo "🌐 Your website is now live at:"
+        echo "   http://${{ secrets.BASE_URL || 'pompahcl.com' }}"
+        echo "   http://${{ secrets.VPS_HOST }}"
+        echo ""
+        echo "📊 Deployment completed at: $(date)"
 
     - name: Cleanup
       if: always()

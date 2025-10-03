@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
   reactStrictMode: true,
   publicRuntimeConfig: {
     enableIndexingSeo: process.env.ENABLE_INDEXING_SEO,
