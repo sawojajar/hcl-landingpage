@@ -7,7 +7,8 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 export default function App({ Component, pageProps }: AppProps) {
-  const enableIndexingSEO = publicRuntimeConfig.enableIndexingSEO;
+  const enableIndexingSEO = publicRuntimeConfig.enableIndexingSeo;
+  console.log(publicRuntimeConfig)
 
   return <RootProvider>
     <DefaultSeo
