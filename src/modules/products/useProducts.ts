@@ -4,8 +4,9 @@ import type {
   ProductsRequest,
   ProductsResponse,
 } from "./ProductEntity";
-const baseUrl =
-    "/api/sheets";
+const baseUrl = typeof window !== 'undefined' 
+  ? "/api/sheets" 
+  : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/sheets`;
 
 export const fetchProducts = async ({
   product,
@@ -27,6 +28,8 @@ export const fetchProducts = async ({
 
   const queryString = new URLSearchParams(params).toString();
   const url = `${baseUrl}?${queryString}`;
+
+  console.log("url", url);
 
   const response = await fetch(url);
   if (!response.ok) {
