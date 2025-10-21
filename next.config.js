@@ -13,7 +13,7 @@ const nextConfig = {
     adminWhatsAppNumber: process.env.ADMIN_WHATSAPP_NUMBER,
     adminWhatsAppChatFormat: process.env.ADMIN_WHATSAPP_CHAT_FORMAT,
     firstCategory: process.env.FIRST_CATEGORY || 'Agrikultur',
-    baseUrl: process.env.BASE_URL || 'https://pompahcl.co.id',
+    baseUrl: process.env.BASE_URL || 'https://pompahcl.com',
   },
   async rewrites() {
     return [

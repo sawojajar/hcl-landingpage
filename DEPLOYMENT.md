@@ -67,7 +67,7 @@ Go to your GitHub repository → Settings → Secrets and variables → Actions,
 | `ADMIN_WHATSAPP_NUMBER` | Admin WhatsApp number | `+6281234567890` |
 | `ADMIN_WHATSAPP_CHAT_FORMAT` | WhatsApp chat URL format | `https://wa.me/{number}?text=Hello%20from%20HCL` |
 | `FIRST_CATEGORY` | Default category name | `Agrikultur` |
-| `BASE_URL` | Base URL for the application | `https://pompahcl.co.id` |
+| `BASE_URL` | Base URL for the application | `https://pompahcl.com` |
 
 ## 🔑 SSH Key Setup
 

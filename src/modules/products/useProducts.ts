@@ -6,7 +6,7 @@ import type {
 } from "./ProductEntity";
 const baseUrl = typeof window !== 'undefined' 
   ? "/api/sheets" 
-  : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/sheets`;
+  : `${process.env.BASE_URL || 'http://localhost:3000'}/api/sheets`;
 
 export const fetchProducts = async ({
   product,
