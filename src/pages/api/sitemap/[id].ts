@@ -4,9 +4,12 @@ import getConfig from "next/config";
 
 const CHUNK_SIZE = 500;
 
-const {publicRuntimeConfig} = getConfig()
+const { publicRuntimeConfig } = getConfig();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { id } = req.query;
   const pageIndex = parseInt(id as string, 10) - 1;
   const baseUrl = `${publicRuntimeConfig.baseUrl}`;
@@ -25,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     product: {
       action: "read",
       page: 1,
-      pageSize: (totalPage|| 0) * 10, // Get all products (alternative: fetch pages dynamically)
+      pageSize: (totalPage || 0) * 10, // Get all products (alternative: fetch pages dynamically)
       path: "product_list",
     },
   }).then((res) => res.data);
@@ -37,7 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Correct usage of chunk slicing
-  const chunk = products.slice(pageIndex * CHUNK_SIZE, (pageIndex + 1) * CHUNK_SIZE);
+  const chunk = products.slice(
+    pageIndex * CHUNK_SIZE,
+    (pageIndex + 1) * CHUNK_SIZE
+  );
   const sitemapContent = generateSitemap(chunk, baseUrl);
 
   res.setHeader("Content-Type", "application/xml");

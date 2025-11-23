@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   logging: {
     fetches: {
       fullUrl: true,
@@ -12,15 +12,15 @@ const nextConfig = {
     enableIndexingSeo: process.env.ENABLE_INDEXING_SEO,
     adminWhatsAppNumber: process.env.ADMIN_WHATSAPP_NUMBER,
     adminWhatsAppChatFormat: process.env.ADMIN_WHATSAPP_CHAT_FORMAT,
-    firstCategory: process.env.FIRST_CATEGORY || 'Agrikultur',
-    baseUrl: process.env.BASE_URL || 'https://pompahcl.com',
+    firstCategory: process.env.FIRST_CATEGORY || "Agrikultur",
+    baseUrl: process.env.BASE_URL || "https://pompahcl.com",
   },
   async rewrites() {
     return [
       { source: "/sitemap.xml", destination: "/api/sitemap.xml" },
-      { source: "/sitemap/:id.xml", destination: "/api/sitemap/[id].ts" },
+      { source: "/sitemap/:id.xml", destination: "/api/sitemap/:id" },
     ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
