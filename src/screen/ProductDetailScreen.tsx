@@ -214,7 +214,7 @@ export function ProductDetailScreen() {
                 src={product.images[selectedImage]?.image_url || "/assets/pump-asset.png"}
                 alt={product.name}
                 width="100%"
-                height="auto"
+                height={"400px"}
                 objectFit="contain"
               />
             </Box>
