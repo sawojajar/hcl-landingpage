@@ -130,7 +130,7 @@ export function HomeScreen() {
 
                                                             <Box key={i} borderWidth={1} borderRadius="lg" p={6}>
                                                                 <Flex direction="column" align="center">
-                                                                    <Image src="/assets/pump-asset.png" alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
+                                                                    <Image src={product.images[0]?.image_url || "/assets/pump-asset.png"} alt="Pump" w="200px" h="300px" objectFit="contain" mb={4} />
                                                                     <Heading as="h3" size="md" mb={2}>
                                                                         {product.category}
                                                                     </Heading>
